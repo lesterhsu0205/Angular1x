@@ -1,0 +1,513 @@
+<div class="panel form-horizontal">
+	<h1 class="page-header">
+		{{curOprMode.text}}
+		<!-- <button ng-show="curOprMode == oprMode.READONLY" 
+				type="button" 
+				class="btn btn-primary btn-xs" 
+				
+				ng-click="changeToEditMode()">
+			修改
+		</button> -->
+	</h1>
+	<div class="panel-body">
+		<div class="panel panel-info">
+			<div class="panel-heading">
+				<h3 class="panel-title">
+					<i class="fa fa-bars fa-fw"></i>
+					描述
+				</h3>
+			</div>
+			<div class="panel-body">			
+				<div class="form-group">
+					<label class="control-label col-lg-2">工程名稱</label>
+	          		<div class="col-lg-3">
+	          			<input ng-model="desc.ticketName" ng-disabled="curOprMode == oprMode.READONLY" type="text" class="form-control">
+	                </div>
+				</div>			
+				<div class="form-group">
+					<label class="control-label col-lg-2">案件類型</label>
+	          		<div class="col-lg-3">
+	          			<select class="form-control"
+								ng-model="desc.caseType"
+								 ng-disabled="curOprMode == oprMode.READONLY"
+								ng-options="item.id as item.codeName for item in staticData.caseTypeItems">
+							<option value="">請選擇</option>
+						</select>
+	                </div>
+					<label class="control-label col-lg-2">案件分類</label>
+	          		<div class="col-lg-3">
+	          			<select class="form-control"
+								ng-model="desc.caseGroup"
+								 ng-disabled="curOprMode == oprMode.READONLY"
+								ng-options="item.id as item.codeName for item in staticData.caseGroupItems">
+							<option value="">請選擇</option>
+						</select>
+	                </div>
+				</div>
+				<div class="form-group">
+					<label class="control-label col-lg-2">年度</label>
+	          		<div class="col-lg-3">
+	          			<select class="form-control"
+								ng-model="desc.year"
+								 ng-disabled="curOprMode == oprMode.READONLY"
+								ng-options="item.value as item.text for item in staticData.yearItems">
+							<option value="">請選擇</option>
+						</select>
+	                </div>
+					<label class="control-label col-lg-2">期別</label>
+	          		<div class="col-lg-3">
+	          			<select class="form-control" 
+	          				    ng-model="desc.season"
+	          				    ng-disabled="curOprMode == oprMode.READONLY"
+								ng-options="item.value as item.text for item in staticData.seasonItems">
+							<option value="">請選擇</option>
+						</select>
+	                </div>
+				</div>
+				<div class="form-group">
+					<label class="control-label col-lg-2">說明</label>
+	          		<div class="col-lg-8">
+	          			<textarea ng-model="desc.reason" ng-disabled="curOprMode == oprMode.READONLY" class="form-control" rows="4"></textarea>
+	                </div>
+				</div>
+			</div>
+		</div>
+		
+		<div class="panel panel-info">
+			<div class="panel-heading">
+				<h3 class="panel-title">
+					<i class="fa fa-map-marker fa-fw"></i>
+					位置
+				</h3>
+			</div>
+			<div class="panel-body">
+				<div class="form-group" ng-repeat="address in location.allAddress">
+					<label class="control-label col-lg-2" >
+						<span ng-show="$first">
+							地址
+							<a href="javascript:;"
+							   ng-hide="curOprMode == oprMode.READONLY"
+							   ng-click="location.allAddress.push({})">
+								<i class="fa fa-plus-circle"></i>
+							</a>
+						</span>
+					</label>
+	          		<div class="col-lg-10">
+	          			<div class="row">
+	          				<div class="col-lg-2">
+			          			<select class="form-control"
+										ng-model="address.city"
+										ng-disabled="curOprMode == oprMode.READONLY"
+										ng-options="item.id as item.codeName for item in staticData.cityItems">
+									<option value="">請選擇</option>
+								</select>
+	          				</div>
+	          				<div class="col-lg-2">
+			          			<select class="form-control"
+										ng-model="address.town"
+										ng-disabled="curOprMode == oprMode.READONLY"
+										ng-options="item.id as item.codeName for item in staticData.townItems[address.city]">
+									<option value="">請選擇</option>
+								</select>
+	          				</div>
+	          				<div class="col-lg-5">
+			          			<input ng-model="address.addr" ng-disabled="curOprMode == oprMode.READONLY"  class="form-control" type="text" placeholder="路街巷號">
+	          				</div>
+	          				<div ng-hide="curOprMode == oprMode.READONLY" style="margin-top: 4px; margin-right: 10px;"
+	          					 ng-click="location.allAddress.splice($index, 1)">
+		          				<a href="javascript:;" ng-show="!$first">
+									<i class="fa fa-minus-circle"></i>
+								</a>
+	          				</div>
+	          			</div>
+	                </div>
+				</div>
+				<div class="form-group">
+					<label class="control-label col-lg-2">經度</label>
+	          		<div class="col-lg-3">
+	          			<input type="text" 
+	          				   class="form-control"
+	          				   ng-model="location.longitude" 
+	          				   ng-disabled="curOprMode == oprMode.READONLY" >
+	                </div>
+					<label class="control-label col-lg-1">緯度</label>
+	          		<div class="col-lg-3">
+	          			<input type="text" 
+	          				   class="form-control" 
+	          				   ng-model="location.latitude"
+	          				   ng-disabled="curOprMode == oprMode.READONLY" >
+	                </div>
+	          		<div class="col-lg-1" style="margin-top: 6px; right: 4px;">
+						<a href="javascript:;" ng-click="openMap()">
+							<i class="fa fa-location-arrow"></i>
+						</a>
+	                </div>
+				</div>
+				<div class="form-group">
+					<label class="control-label col-lg-2">位置說明</label>
+	          		<div class="col-lg-8">
+          				<textarea ng-disabled="curOprMode == oprMode.READONLY" 
+          						  ng-model="location.reason" 
+          						  class="form-control" 
+          						  rows="4">
+          				</textarea>
+	                </div>
+				</div>
+			</div>
+		</div>
+		<div class="panel panel-info">
+			<div class="panel-heading">
+				<h3 class="panel-title">
+					<i class="fa fa-phone-square fa-fw"></i>
+					通報
+				</h3>
+			</div>
+			<div class="panel-body">
+				<div class="form-group">
+					<label class="control-label col-lg-2">通報單位</label>
+	          		<div class="col-lg-3">
+	          			<input ng-model="notice.dep" ng-disabled="curOprMode == oprMode.READONLY" type="text" class="form-control">
+	                </div>
+					<label class="control-label col-lg-2">通報人員</label>
+	          		<div class="col-lg-3">
+	          			<input ng-model="notice.person" ng-disabled="curOprMode == oprMode.READONLY" type="text" class="form-control">
+	                </div>
+				</div>
+				<div class="form-group">
+					<label class="control-label col-lg-2">市話</label>
+       				<div class="col-lg-1">
+       					<input ng-model="notice.phone.areaCode" ng-disabled="curOprMode == oprMode.READONLY" type="text" class="form-control" placeholder="區碼">
+       				</div>
+       				<div class="col-lg-3">
+       					<input ng-model="notice.phone.tel" ng-disabled="curOprMode == oprMode.READONLY" type="text" class="form-control" placeholder="電話">
+       				</div>
+       				<div class="col-lg-2">
+       					<input ng-model="notice.phone.exten" ng-disabled="curOprMode == oprMode.READONLY" type="text" class="form-control" placeholder="分機">
+       				</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label col-lg-2">手機</label>
+	          		<div class="col-lg-3">
+	          			<input ng-model="notice.mobile" ng-disabled="curOprMode == oprMode.READONLY" type="text" class="form-control">
+	                </div>
+				</div>
+				<div class="form-group">
+					<label class="control-label col-lg-2">承辦業務</label>
+	          		<div class="col-lg-3">
+	          			<input ng-model="notice.contractor" ng-disabled="curOprMode == oprMode.READONLY" type="text" class="form-control">
+	                </div>
+				</div>
+				<div class="form-group">
+					<label class="control-label col-lg-2">說明</label>
+	          		<div class="col-lg-8">
+	          			<textarea ng-model="notice.reason" ng-disabled="curOprMode == oprMode.READONLY" class="form-control" rows="4"></textarea>
+	                </div>
+				</div>
+			</div>
+		</div>
+		<div class="panel panel-info" ng-hide="curOprMode == oprMode.CREATE">
+			<div class="panel-heading">
+				<h3 class="panel-title">
+					<i class="fa fa-phone-square fa-fw"></i>
+					歷程
+				</h3>
+			</div>
+			<div class="panel-body">
+				<div>
+					<div class="form-group">
+						<div class="col-lg-12">
+							<table class="table table-bordered table-hover table-striped">
+				                <thead>
+				                    <tr>
+				                        <th style="text-align: center;">狀態</th>
+				                        <th style="text-align: center;">狀態細項</th>
+				                        <th style="text-align: center;">上傳日期</th>
+				                        <th style="text-align: center;">備註</th>
+				                    </tr>
+				                </thead>
+				                <tbody>
+				                    <tr ng-repeat="info in ticketInfos.result">
+				                        <td style="vertical-align: middle;">{{info.statusName}}</td>
+				                        <td style="vertical-align: middle;">{{info.subStatusName}}</td>
+				                        <td style="vertical-align: middle;" align="center">{{info.createDateFormat}}</td>
+				                        <td style="vertical-align: middle;">{{info.remark}}</td>
+				                    </tr>
+				                    <tr ng-show="isEmpty(ticketInfos.result)">
+				                    	<td td class='text-center' colspan="4">&#28961;&#36039;&#26009;</td>
+				                    </tr>
+				                </tbody>
+				            </table>
+				            <div pagination
+				            	 total-count="ticketInfos.totalCount"
+				            	 page-size="ticketInfosPageSize"
+				            	 change-func="ticketInfoChangePage"
+				            	 init-api="ticketInfoInitApi">
+			            	</div>
+			            </div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="panel-footer" align="right">
+		<!-- <button ng-hide="curOprMode == oprMode.CREATE" type="button" class="btn btn-success" 
+				ng-click="modalService.open(modalKey.ticketHis)">
+			工單歷程
+		</button> -->
+		<button ng-show="curOprMode == oprMode.READONLY" type="button" class="btn btn-success" 
+				ng-click="openQueryFileInfo()">
+			檔案下載
+		</button>
+		<button ng-show="curOprMode == oprMode.EDIT" type="button" class="btn btn-primary" 
+				ng-click="addRemark()">
+			新增備註
+		</button>
+		<button ng-show="curOprMode == oprMode.EDIT" type="button" class="btn btn-primary" 
+				ng-click="openUploadFile()">
+			檔案上傳
+		</button>
+		<button ng-show="curOprMode == oprMode.READONLY" type="button" class="btn btn-primary" 
+				ng-click="changeToEditMode()">
+			修改
+		</button>
+		<button ng-show="curOprMode == oprMode.EDIT" type="button" class="btn btn-warning" 
+			    ng-click="modify()">
+			確認修改
+		</button>
+		<button ng-show="curOprMode == oprMode.CREATE" type="button" class="btn btn-primary" 
+				ng-click="create();">
+			開單
+		</button>
+	</div>
+</div>
+
+<!-- <div class="modal fade" id="{{modalKey.ticketHis}}" tabindex="-1">
+	<div class="modal-dialog modal-lg">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+				<h4 class="modal-title" >工單歷程</h4>
+			</div>
+			<div class="modal-body form-horizontal">
+				<div class="form-group">
+					<label class="control-label col-lg-2">狀態</label>
+	          		<div class="col-lg-3">
+	          			<select class="form-control"
+								ng-model="ticketHis.status"
+								ng-options="item.id as item.codeName for item in staticData.ticketStatusItems">
+							<option value="">請選擇</option>
+						</select>
+	                </div>
+	          		<div class="col-lg-3">
+	          			<select class="form-control"
+								ng-model="ticketHis.subStatus"
+								ng-options="item.id as item.codeName for item in staticData.ticketSubStatusItems[ticketHis.status]">
+							<option value="">請選擇</option>
+						</select>
+	                </div>
+	          		<div class="col-lg-3">
+					<button type="button" class="btn btn-primary btn-sm" ng-click="queryTicket()">
+							查詢
+						</button>
+	          		</div>
+				</div>
+				<div ng-show="!isEmpty(ticketInfos)">
+					<div class="form-group">
+						<div class="col-lg-12">
+							<table class="table table-bordered table-hover table-striped">
+				                <thead>
+				                    <tr>
+				                        <th style="text-align: center;">狀態</th>
+				                        <th style="text-align: center;">狀態細項</th>
+				                        <th style="text-align: center;">上傳日期</th>
+				                        <th style="text-align: center;">備註</th>
+				                    </tr>
+				                </thead>
+				                <tbody>
+				                    <tr ng-repeat="info in ticketInfos.result">
+				                        <td style="vertical-align: middle;">{{info.status}}</td>
+				                        <td style="vertical-align: middle;">{{info.subStatus}}</td>
+				                        <td style="vertical-align: middle;" align="center">{{info.upDateDate}}</td>
+				                        <td style="vertical-align: middle;">{{info.remark}}</td>
+				                    </tr>
+				                    <tr ng-show="isEmpty(ticketInfos.result)">
+				                    	<td td class='text-center' colspan="3">&#28961;&#36039;&#26009;</td>
+				                    </tr>
+				                </tbody>
+				            </table>
+				            <div pagination
+				            	 total-count="ticketInfos.totalCount"
+				            	 page-size="ticketInfosPageSize"
+				            	 change-func="ticketInfoChangePage"
+				            	 init-api="ticketInfoInitApi">
+			            	</div>
+			            </div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div> -->
+
+<div class="modal fade" id="{{modalKey.download}}" tabindex="-1">
+	<div class="modal-dialog modal-lg">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+				<h4 class="modal-title" >檔案下載</h4>
+			</div>
+			<div class="modal-body form-horizontal">
+				<div class="form-group">
+					<label class="control-label col-lg-2">檔案類型</label>
+	          		<div class="col-lg-3">
+	          			<select class="form-control"
+								ng-model="queryFileInfoParam.fileType"
+								ng-options="item.id as item.codeName for item in staticData.fileTypeItems">
+							<option value="">全部</option>
+						</select>
+	                </div>
+	          		<div class="col-lg-3">
+						<button type="button" class="btn btn-primary btn-sm" ng-click="queryFileInfo()">
+							查詢
+						</button>
+	          		</div>
+				</div>
+				<div ng-show="!isEmpty(fileInfos)">
+					<div class="form-group">
+						<div class="col-lg-12">
+							<table class="table table-bordered table-hover table-striped">
+				                <thead>
+				                    <tr>
+				                        <th style="text-align: center;" class="col-lg-2">類行</th>
+				                        <th style="text-align: center;" class="col-lg-2">上傳日期</th>
+				                        <th style="text-align: center;" class="col-lg-3">檔案名稱</th>
+				                        <th style="text-align: center;" class="col-lg-4">備註</th>
+				                        <th style="text-align: center;" class="col-lg-1">下載</th>
+				                    </tr>
+				                </thead>
+				                <tbody>
+				                    <tr ng-repeat="info in fileInfos.result">
+				                        <td style="vertical-align: middle;">{{info.fileType}}</td>
+				                        <td style="vertical-align: middle;" align="center">{{info.uploaDateFormat}}</td>
+				                        <td style="vertical-align: middle;">{{info.fileName}}</td>
+				                        <td style="vertical-align: middle;">{{info.remark}}</td>
+				                        <td style="vertical-align: middle;"  align="center">
+					                        <button type="button" class="btn btn-primary btn-sm" 
+					                        		ng-click="fileDownload(info.id);">
+												下載
+											</button>
+				                        </td>
+				                    </tr>
+				                    <tr ng-show="isEmpty(fileInfos.result)">
+				                    	<td td class='text-center' colspan="5">&#28961;&#36039;&#26009;</td>
+				                    </tr>
+				                </tbody>
+				            </table>
+				            <div pagination
+				            	 total-count="fileInfos.totalCount"
+				            	 page-size="fileInfosPageSize"
+				            	 change-func="fileInfoChangePage"
+				            	 init-api="fileInfoInitApi">
+			            	</div>
+			            </div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="modal fade" id="{{modalKey.insertRemark}}" tabindex="-1">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+				<h4 class="modal-title" >新增備註</h4>
+			</div>
+			<div class="modal-body form-horizontal">
+				<div class="form-group">
+					<label class="control-label col-lg-2">狀態</label>
+	          		<div class="col-lg-3">
+	          			<select class="form-control"
+								ng-model="remark.status"
+								ng-options="item.id as item.codeName for item in staticData.statusItems">
+							<option value="">請選擇</option>
+						</select>
+	                </div>
+	          		<div class="col-lg-3">
+	          			<select class="form-control"
+								ng-model="remark.subStatus"
+								ng-options="item.id as item.codeName for item in staticData.subStatusItems[remark.status]">
+							<option value="">請選擇</option>
+						</select>
+	                </div>
+				</div>
+				<div class="form-group">
+					<label class="control-label col-lg-2">備註</label>
+	          		<div class="col-lg-8">
+	          			<textarea class="form-control" 
+	          					  rows="4"
+	          					  ng-model="remark.remark">
+	          			</textarea>
+	                </div>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-primary" ng-click="insertRemark()">
+					確定
+				</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<div class="modal fade" id="{{modalKey.upload}}" tabindex="-1">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+				<h4 class="modal-title" >檔案上傳</h4>
+			</div>
+			<div class="modal-body form-horizontal">
+				<div class="form-group">
+					<label class="control-label col-lg-2">檔案類型</label>
+	          		<div class="col-lg-4">
+	          			<select class="form-control"
+								ng-model="uploadFileInfo.fileType"
+								ng-options="item.id as item.codeName for item in staticData.fileTypeItems">
+							<option value="">請選擇</option>
+						</select>
+	                </div>
+				</div>
+				<div class="form-group">
+					<label class="control-label col-lg-2">上傳檔案</label>
+	          		<div class="col-lg-4">
+	                	<input id="uploadFile"
+	                		   type="file"
+	                		   file-model="uploadFileInfo.file">
+	          		</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label col-lg-2">備註</label>
+	          		<div class="col-lg-8">
+	          			<textarea ng-model="uploadFileInfo.remark" class="form-control" rows="4"></textarea>
+	                </div>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-primary" ng-click="uploadFile()">
+					確定
+				</button>
+			</div>
+		</div>
+	</div>
+</div>

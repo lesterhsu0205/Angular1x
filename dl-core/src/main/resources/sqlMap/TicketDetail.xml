@@ -1,0 +1,398 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ticketCreate">
+
+	
+	<insert id="com-ycci-core-dao-impl-TicketDetailDaoImpl-insertCurTicketMain" useGeneratedKeys="true" keyProperty="id" >
+		INSERT INTO CUR_TICKET_MAIN
+		(
+			TICKET_NAME,
+			CASE_TYPE,
+			CASE_GROUP,
+			YEAR,
+			SEASON,
+			LONGITUDE,
+			LATITUDE,
+			NOTICE_DEP,
+			NOTICE_PERSON,
+			NOTICE_AREACODE,
+			NOTICE_TEL,
+			NOTICE_EXTEN,
+			NOTICE_MOBILE,
+			CONTRACTOR,
+			DESC_REASON,
+			LOCATION_REASON,
+			NOTICE_REASON,
+			CUR_STATUS_ID,
+			CREATE_DATE,
+			CREATE_USER,
+			UPDATE_DATE,
+			UPDATE_USER
+		)
+		VALUES
+		(
+			#{ticketName},
+			#{caseType},
+			#{caseGroup},
+			#{year},
+			#{season},
+			#{longitude},
+			#{latitude},
+			#{noticeDep},
+			#{noticePerson},
+			#{noticeAreacode},
+			#{noticeTel},
+			#{noticeExten},
+			#{noticeMobile},
+			#{contractor},
+			#{descReason},
+			#{locationReason},
+			#{noticeReason},
+			#{curStatusId},
+			#{createDate},
+			#{createUser},
+			#{updateDate},
+			#{updateUser}
+		)	
+	</insert>
+	
+	<insert id="com-ycci-core-dao-impl-TicketDetailDaoImpl-insertCurTicketAddr" useGeneratedKeys="true" keyProperty="id" >
+		INSERT INTO CUR_TICKET_ADDR
+		(
+			TICKET_ID,
+			CITY,
+			TOWN,
+			ADDR,
+			CREATE_DATE,
+			CREATE_USER,
+			UPDATE_DATE,
+			UPDATE_USER
+		)
+		VALUES
+	    <foreach collection="list" item="item" separator="," >
+			(
+				#{item.ticketId},
+				#{item.city},
+				#{item.town},
+				#{item.addr},
+				#{item.createDate},
+				#{item.createUser},
+				#{item.updateDate},
+				#{item.updateUser}
+			)
+	    </foreach>
+
+	</insert>
+	
+	<insert id="com-ycci-core-dao-impl-TicketDetailDaoImpl-insertCurTicketStatus" useGeneratedKeys="true" keyProperty="id" >
+		INSERT INTO CUR_TICKET_STATUS
+		(
+			TICKET_ID,
+			STATUS,
+			SUB_STATUS,
+			REMARK,
+			CREATE_DATE,
+			CREATE_USER,
+			UPDATE_DATE,
+			UPDATE_USER
+		)
+		VALUES
+		(
+			#{ticketId},
+			#{status},
+			#{subStatus},
+			#{remark},
+			#{createDate},
+			#{createUser},
+			#{updateDate},
+			#{updateUser}
+		)
+	</insert>
+	
+	<insert id="com-ycci-core-dao-impl-TicketDetailDaoImpl-insertCurTicketFile" useGeneratedKeys="true" keyProperty="id" >
+		INSERT INTO CUR_TICKET_FILE
+		(
+			TICKET_ID,
+			PATH,
+			FILE_NAME,
+			FILE_TYPE,
+			REMARK,
+			CREATE_DATE,
+			CREATE_USER,
+			UPDATE_DATE,
+			UPDATE_USER
+		)
+		VALUES
+		(
+			#{ticketId},
+			#{path},
+			#{fileName},
+			#{fileType},
+			#{remark},
+			#{createDate},
+			#{createUser},
+			#{updateDate},
+			#{updateUser}
+		)
+	</insert>
+	
+	<select id="com-ycci-core-dao-impl-TicketDetailDaoImpl-queryCurTicketMain" resultType="HashMap" parameterType="map" >
+		SELECT C.ID,
+		    C.TICKET_NAME,
+		    C.CASE_TYPE,
+		    C.CASE_GROUP,
+		    C.YEAR,
+		    C.SEASON,
+		    C.LONGITUDE,
+		    C.LATITUDE,
+		    C.NOTICE_DEP,
+		    C.NOTICE_PERSON,
+		    C.NOTICE_AREACODE,
+		    C.NOTICE_TEL,
+		    C.NOTICE_EXTEN,
+		    C.NOTICE_MOBILE,
+		    C.CONTRACTOR,
+		    C.DESC_REASON,
+		    C.LOCATION_REASON,
+		    C.NOTICE_REASON,
+		    C.CUR_STATUS_ID,
+		    C.CREATE_DATE,
+		    C.CREATE_USER,
+		    C.UPDATE_DATE,
+		    C.UPDATE_USER
+		FROM CUR_TICKET_MAIN C
+		WHERE C.ID = #{ID};
+	</select>
+	
+	<select id="com-ycci-core-dao-impl-TicketDetailDaoImpl-queryCurTicketFile" resultType="HashMap" parameterType="map" >
+		SELECT C.ID,
+		    C.TICKET_ID,
+		    C.PATH,
+		    C.FILE_NAME,
+		    C.FILE_TYPE,
+		    C.REMARK,
+		    C.CREATE_DATE,
+		    C.CREATE_USER,
+		    C.UPDATE_DATE,
+		    C.UPDATE_USER
+		FROM CUR_TICKET_FILE C
+		WHERE C.ID = #{ID};
+	</select>
+	
+	
+	<select id="com-ycci-core-dao-impl-TicketDetailDaoImpl-queryCurTicketAddr" resultType="HashMap" parameterType="map" >
+		SELECT 
+			C.ID,
+		    C.TICKET_ID,
+		    C.CITY,
+		    C.TOWN,
+		    C.ADDR,
+		    C.CREATE_DATE,
+		    C.CREATE_USER,
+		    C.UPDATE_DATE,
+		    C.UPDATE_USER
+		FROM CUR_TICKET_ADDR C
+		WHERE C.TICKET_ID = ${TICKET_ID}
+			  AND C.STATUS = 1
+	</select>
+		
+	<update id="com-ycci-core-dao-impl-TicketDetailDaoImpl-updateCurStatusId"  parameterType="map" >
+		UPDATE CUR_TICKET_MAIN
+		SET
+		CUR_STATUS_ID = ${CUR_STATUS_ID},
+		UPDATE_DATE = NOW(),
+		UPDATE_USER = ${UPDATE_USER}
+		WHERE ID = ${ID}
+	</update>
+	
+	<update id="com-ycci-core-dao-impl-TicketDetailDaoImpl-updateCurTicketMainByModify"  >
+		UPDATE CUR_TICKET_MAIN
+		SET
+		TICKET_NAME = <choose><when test="ticketName != null">'${ticketName}'</when><otherwise>NULL</otherwise></choose>,
+		CASE_TYPE = <choose><when test="caseType != null">'${caseType}'</when><otherwise>NULL</otherwise></choose>,
+		CASE_GROUP = <choose><when test="caseGroup != null">'${caseGroup}'</when><otherwise>NULL</otherwise></choose>,
+		YEAR = <choose><when test="year != null">'${year}'</when><otherwise>NULL</otherwise></choose>,
+		SEASON = <choose><when test="season != null">'${season}'</when><otherwise>NULL</otherwise></choose>,
+		LONGITUDE = <choose><when test="longitude != null">'${longitude}'</when><otherwise>NULL</otherwise></choose>,
+		LATITUDE = <choose><when test="latitude != null">'${latitude}'</when><otherwise>NULL</otherwise></choose>,
+		NOTICE_DEP = <choose><when test="noticeDep != null">'${noticeDep}'</when><otherwise>NULL</otherwise></choose>,
+		NOTICE_PERSON = <choose><when test="noticePerson != null">'${noticePerson}'</when><otherwise>NULL</otherwise></choose>,
+		NOTICE_AREACODE = <choose><when test="noticeAreacode != null">'${noticeAreacode}'</when><otherwise>NULL</otherwise></choose>,
+		NOTICE_TEL = <choose><when test="noticeTel != null">'${noticeTel}'</when><otherwise>NULL</otherwise></choose>,
+		NOTICE_EXTEN = <choose><when test="noticeExten != null">'${noticeExten}'</when><otherwise>NULL</otherwise></choose>,
+		NOTICE_MOBILE = <choose><when test="noticeMobile != null">'${noticeMobile}'</when><otherwise>NULL</otherwise></choose>,
+		CONTRACTOR = <choose><when test="contractor != null">'${contractor}'</when><otherwise>NULL</otherwise></choose>,
+		DESC_REASON = <choose><when test="descReason != null">'${descReason}'</when><otherwise>NULL</otherwise></choose>,
+		LOCATION_REASON = <choose><when test="locationReason != null">'${locationReason}'</when><otherwise>NULL</otherwise></choose>,
+		NOTICE_REASON = <choose><when test="noticeReason != null">'${noticeReason}'</when><otherwise>NULL</otherwise></choose>,
+		UPDATE_DATE = NOW(),
+		UPDATE_USER = <choose><when test="updateUser != null">'${updateUser}'</when><otherwise>NULL</otherwise></choose>
+		WHERE ID = ${id}
+	</update>
+	
+	
+	<update id="com-ycci-core-dao-impl-TicketDetailDaoImpl-updateCurTicketFile"  >
+		UPDATE CUR_TICKET_FILE
+		SET
+		TICKET_ID = <choose><when test="ticketId != null">'${ticketId}'</when><otherwise>NULL</otherwise></choose>,
+		PATH = <choose><when test="path != null">'${path}'</when><otherwise>NULL</otherwise></choose>,
+		FILE_TYPE = <choose><when test="fileType != null">'${fileType}'</when><otherwise>NULL</otherwise></choose>,
+		REMARK = <choose><when test="remark != null">'${remark}'</when><otherwise>NULL</otherwise></choose>,
+		UPDATE_DATE = NOW(),
+		UPDATE_USER = <choose><when test="updateUser != null">'${updateUser}'</when><otherwise>NULL</otherwise></choose>
+		WHERE ID = ${id}
+	</update>
+	
+	<update id="com-ycci-core-dao-impl-TicketDetailDaoImpl-updateCurTicketAddrStatusToClose" >
+		UPDATE CUR_TICKET_ADDR
+		SET
+		STATUS = 0,
+		UPDATE_DATE = NOW(),
+		UPDATE_USER = ${UPDATE_USER}
+		WHERE TICKET_ID = ${TICKET_ID}
+	</update>
+	
+	<select id="com-ycci-core-dao-impl-TicketDetailDaoImpl-queryTicketHisStatus" resultType="HashMap" parameterType="map" >
+		SELECT
+			C1.CODE_NAME STATUS_NAME, 
+			C2.CODE_NAME SUB_STATUS_NAME, 
+			S.REMARK REMARK, 
+			S.CREATE_DATE CREATE_DATE
+		FROM 
+		(
+			SELECT S.ID, S.STATUS, S.SUB_STATUS, S.REMARK, S.UPDATE_DATE, S.CREATE_DATE
+			FROM CUR_TICKET_STATUS S
+			WHERE S.TICKET_ID = ${TICKET_ID}
+		) S 
+		LEFT JOIN (CFG_SYSTEM_CONFIG C1) ON S.STATUS = C1.ID 
+		LEFT JOIN (CFG_SYSTEM_CONFIG C2)  ON S.SUB_STATUS = C2.ID
+		ORDER BY S.CREATE_DATE DESC
+		LIMIT ${PAGE_IDX}, ${PAGE_SIZE}
+	</select>
+	
+	<select id="com-ycci-core-dao-impl-TicketDetailDaoImpl-queryTicketHisStatusCount" resultType="Long" >
+		SELECT
+			COUNT(1)
+		FROM 
+		(
+			SELECT S.ID, S.STATUS, S.SUB_STATUS, S.REMARK, S.UPDATE_DATE, S.CREATE_DATE
+			FROM CUR_TICKET_STATUS S
+			WHERE S.TICKET_ID = ${TICKET_ID}
+		) S 
+		LEFT JOIN (CFG_SYSTEM_CONFIG C1) ON S.STATUS = C1.ID 
+		LEFT JOIN (CFG_SYSTEM_CONFIG C2)  ON S.SUB_STATUS = C2.ID
+	</select>
+	
+	<select id="com-ycci-core-dao-impl-TicketDetailDaoImpl-queryFileInfo" resultType="HashMap" parameterType="map" >
+		SELECT 
+			F.ID ID, 
+			F.REMARK REMARK, 
+			F.FILE_NAME,
+			F.CREATE_DATE UPLOA_DATE, 
+			C.CODE_NAME FILE_TYPE
+		FROM (SELECT * 
+			  FROM CUR_TICKET_FILE F 
+			  WHERE F.TICKET_ID = ${TICKET_ID}
+			  	AND (${NOT_FILE_TYPE} = 1 OR F.FILE_TYPE = ${FILE_TYPE})
+			  ) F
+			  LEFT JOIN CFG_SYSTEM_CONFIG C  ON F.FILE_TYPE = C.ID 
+		ORDER BY F.CREATE_DATE DESC
+		LIMIT ${PAGE_IDX}, ${PAGE_SIZE}
+	</select>
+	
+	<select id="com-ycci-core-dao-impl-TicketDetailDaoImpl-queryFileInfoCount" resultType="Long"  >
+		SELECT 
+			COUNT(1)
+		FROM (SELECT * 
+			  FROM CUR_TICKET_FILE F 
+			  WHERE F.TICKET_ID = ${TICKET_ID}
+			  	AND (${NOT_FILE_TYPE} = 1 OR F.FILE_TYPE = ${FILE_TYPE})
+			  ) F
+			  LEFT JOIN CFG_SYSTEM_CONFIG C  ON F.FILE_TYPE = C.ID
+	</select>
+	
+	<select id="com-ycci-core-dao-impl-TicketDetailDaoImpl-queryTicket" resultType="HashMap" parameterType="map" >
+		SELECT 
+			M.ID ID,
+		    M.TICKET_NAME TICKET_NAME,
+		    M.SEASON SEASON,
+		    M.YEAR YEAR,
+			C3.CODE_NAME CITY, 
+			C4.CODE_NAME TOWN,
+		    A.ADDR ADDR,
+		    M.NOTICE_DEP NOTICE_DEP,
+		    M.NOTICE_PERSON NOTICE_PERSON,
+		    M.NOTICE_AREACODE NOTICE_AREACODE,
+		    M.NOTICE_TEL NOTICE_TEL,
+		    M.NOTICE_EXTEN NOTICE_EXTEN,
+		    M.NOTICE_MOBILE NOTICE_MOBILE,
+			C1.CODE_NAME STATUS, 
+			C2.CODE_NAME SUB_STATUS 
+		FROM (
+				SELECT * 
+			  	FROM CUR_TICKET_MAIN M  
+			  	WHERE 1 = 1
+			  	    AND (${NOT_CREATE_DATE_START} = 1 OR M.CREATE_DATE 
+			  	    			&gt; DATE_SUB(STR_TO_DATE('${CREATE_DATE_START}','%Y/%m/%d'),INTERVAL 1 DAY))
+			  	    AND (${NOT_CREATE_DATE_END} = 1 OR M.CREATE_DATE 
+			  	    			&lt; DATE_ADD(STR_TO_DATE('${CREATE_DATE_END}','%Y/%m/%d'),INTERVAL 1 DAY))
+		            AND (${NOT_CASE_TYPE} = 1 OR M.CASE_TYPE = ${CASE_TYPE})
+		            AND (${NOT_CASE_GROUP} = 1 OR M.CASE_GROUP = ${CASE_GROUP})
+			 ) M
+			 LEFT JOIN CUR_TICKET_STATUS S   ON M.CUR_STATUS_ID = S.ID
+			 LEFT JOIN CFG_SYSTEM_CONFIG C1  ON S.STATUS = C1.ID 
+			 LEFT JOIN CFG_SYSTEM_CONFIG C2  ON S.SUB_STATUS = C2.ID
+		     LEFT JOIN 
+		     (
+		     	SELECT * 
+		      	FROM CUR_TICKET_ADDR A 
+		      	WHERE 1=1
+		            AND A.STATUS = 1 
+		     ) A ON M.ID = A.TICKET_ID
+			 LEFT JOIN CFG_SYSTEM_CONFIG C3 ON A.CITY = C3.ID 
+			 LEFT JOIN CFG_SYSTEM_CONFIG C4 ON A.TOWN = C4.ID
+		WHERE 1 = 1
+	  		AND (${NOT_STATUS} = 1 OR S.STATUS = ${STATUS})
+	  		AND (${NOT_SUB_STATUS} = 1 OR S.SUB_STATUS = ${SUB_STATUS})
+      		AND (${NOT_CITY} = 1 OR A.CITY = ${CITY})
+      		AND (${NOT_TOWN} = 1 OR A.TOWN = ${TOWN})
+            AND (${NOT_ADDR} = 1 OR A.ADDR LIKE '%${ADDR}%')
+		ORDER BY M.CREATE_DATE DESC
+		LIMIT ${PAGE_IDX}, ${PAGE_SIZE}
+	</select>
+	
+	<select id="com-ycci-core-dao-impl-TicketDetailDaoImpl-queryTicketCount"  resultType="Long">
+		SELECT 
+			COUNT(1)
+		FROM (
+				SELECT * 
+			  	FROM CUR_TICKET_MAIN M  
+			  	WHERE 1 = 1
+			  	    AND (${NOT_CREATE_DATE_START} = 1 OR M.CREATE_DATE 
+			  	    			&gt; DATE_SUB(STR_TO_DATE('${CREATE_DATE_START}','%Y/%m/%d'),INTERVAL 1 DAY))
+			  	    AND (${NOT_CREATE_DATE_END} = 1 OR M.CREATE_DATE 
+			  	    			&lt; DATE_ADD(STR_TO_DATE('${CREATE_DATE_END}','%Y/%m/%d'),INTERVAL 1 DAY))
+		            AND (${NOT_CASE_TYPE} = 1 OR M.CASE_TYPE = ${CASE_TYPE})
+		            AND (${NOT_CASE_GROUP} = 1 OR M.CASE_GROUP = ${CASE_GROUP})
+			 ) M
+			 LEFT JOIN CUR_TICKET_STATUS S   ON M.CUR_STATUS_ID = S.ID
+			 LEFT JOIN CFG_SYSTEM_CONFIG C1  ON S.STATUS = C1.ID 
+			 LEFT JOIN CFG_SYSTEM_CONFIG C2  ON S.SUB_STATUS = C2.ID
+		     LEFT JOIN 
+		     (
+		     	SELECT * 
+		      	FROM CUR_TICKET_ADDR A 
+		      	WHERE 1=1
+		            AND A.STATUS = 1 
+		     ) A ON M.ID = A.TICKET_ID
+			 LEFT JOIN CFG_SYSTEM_CONFIG C3 ON A.CITY = C3.ID 
+			 LEFT JOIN CFG_SYSTEM_CONFIG C4 ON A.TOWN = C4.ID
+		WHERE 1 = 1
+	  		AND (${NOT_STATUS} = 1 OR S.STATUS = ${STATUS})
+	  		AND (${NOT_SUB_STATUS} = 1 OR S.SUB_STATUS = ${SUB_STATUS})
+      		AND (${NOT_CITY} = 1 OR A.CITY = ${CITY})
+      		AND (${NOT_TOWN} = 1 OR A.TOWN = ${TOWN})
+            AND (${NOT_ADDR} = 1 OR A.ADDR LIKE '%${ADDR}%')
+	</select>
+	
+</mapper>
