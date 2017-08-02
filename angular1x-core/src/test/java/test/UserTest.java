@@ -13,11 +13,11 @@ import org.springframework.core.io.support.PropertiesLoaderUtils;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import com.ycci.core.dao.ICommonDao;
-import com.ycci.core.dao.IUserDao;
-import com.ycci.core.model.CfgAuthUser;
-import com.ycci.support.util.Pagination;
-import com.ycci.support.viewModel.Option;
+import com.lester.core.dao.ICommonDao;
+import com.lester.core.dao.IUserDao;
+import com.lester.core.model.CfgAuthUser;
+import com.lester.support.util.Pagination;
+import com.lester.support.viewModel.Option;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {"classpath:applicationContext.xml"})

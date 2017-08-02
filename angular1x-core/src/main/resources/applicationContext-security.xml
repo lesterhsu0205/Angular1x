@@ -33,8 +33,8 @@
 	    	<password-encoder ref="passwordEncoder" />
 	    </authentication-provider>
 	</authentication-manager>
-	<beans:bean id="userDetailsService" class="com.ycci.security.UserDetailsServiceImpl" />
-	<beans:bean id="authenticationLoginSuccessHandler" class="com.ycci.security.DLLoginSuccessHandler"/>
-	<beans:bean id="authenticationLogoutSuccessHandler" class="com.ycci.security.DLLogoutSuccessHandler" />
-	<beans:bean id="passwordEncoder" class="com.ycci.security.PasswordEncoderImpl" />
+	<beans:bean id="userDetailsService" class="com.lester.security.UserDetailsServiceImpl" />
+	<beans:bean id="authenticationLoginSuccessHandler" class="com.lester.security.DLLoginSuccessHandler"/>
+	<beans:bean id="authenticationLogoutSuccessHandler" class="com.lester.security.DLLogoutSuccessHandler" />
+	<beans:bean id="passwordEncoder" class="com.lester.security.PasswordEncoderImpl" />
 </beans:beans>

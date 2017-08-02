@@ -1,26 +1,17 @@
 package test;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Properties;
-
+import com.lester.core.dao.ICfgSysConfigDao;
+import com.lester.core.model.CfgSystemConfig;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.core.io.ClassPathResource;
-import org.springframework.core.io.Resource;
-import org.springframework.core.io.support.PropertiesLoaderUtils;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import com.ycci.core.dao.ICfgSysConfigDao;
-import com.ycci.core.dao.impl.UserDaoImpl;
-import com.ycci.core.model.CfgAuthUser;
-import com.ycci.core.model.CfgSystemConfig;
-import com.ycci.support.util.Pagination;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {"classpath:applicationContext.xml"})

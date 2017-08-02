@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="sample">
 
-	<resultMap id="cfgAuthUserResult" type="com.ycci.core.model.CfgAuthUser" >
+	<resultMap id="cfgAuthUserResult" type="com.lester.core.model.CfgAuthUser" >
 		<result column="ID" property="id" />
 		<result column="USER_NAME" property="userName" />
 		<result column="PASSWORD" property="password" />
