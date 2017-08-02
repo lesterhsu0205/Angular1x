@@ -1,0 +1,155 @@
+<div>
+	<!-- Page Heading -->
+	<div class="row">
+		<div class="col-lg-12">
+			<h1 class="page-header">人員管理</h1>
+			<div class="form-horizontal">
+				<div class="form-group" align="right">
+					<div class="col-lg-12">
+						<button type="button" class="btn btn-primary" 
+							    ng-click="addUser()">
+							新增人員
+						</button>
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="col-lg-12">
+						<table class="table table-bordered table-hover">
+							<thead>
+								<tr>
+									<th style="text-align: center;">姓名</th>
+									<th style="text-align: center;">角色</th>
+									<th style="text-align: center;">部門</th>
+									<th style="text-align: center;">聯絡電話</th>
+									<th style="text-align: center;">email</th>
+									<th style="text-align: center;">狀態</th>
+									<th style="text-align: center;">處理</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr ng-class="{danger: user.status == false}" ng-repeat="user in userInfos.result">
+									<td style="vertical-align: middle;" align="center">
+										{{user.name}}
+									</td>
+									<td style="vertical-align: middle;" align="center">
+										{{queryTextByKey(roleItems, user.roleId, 'value', 'text')}}
+									</td>
+									<td style="vertical-align: middle;" align="center">
+										{{queryTextByKey(depItems, user.depId, 'value', 'text')}}
+									</td>
+									<td style="vertical-align: middle;" align="center">
+										{{user.phone}}
+									</td>
+									<td style="vertical-align: middle;" align="center">
+										{{user.email}}
+									</td>
+									<td style="vertical-align: middle;" align="center">
+										{{queryTextByKey(statusItems, user.status, 'value', 'text')}}
+									</td>
+									<td style="vertical-align: middle;" align="center">
+										<button type="button" class="btn btn-warning btn-sm" ng-click="modifyMember(user.id)">修改</button>
+									</td>
+								</tr>
+								<tr ng-show="isEmpty(userInfos.result)">
+									<td td class='text-center' colspan="8">&#28961;&#36039;&#26009;</td>
+								</tr>
+							</tbody>
+						</table>
+						<div pagination 
+							 total-count="userInfos.totalCount"
+							 page-size="userInfosPageSize" 
+							 change-func="userInfoChangePage"
+							 init-api="userInfoInitApi">
+					 	</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- /.row -->
+</div>
+
+<div class="modal fade" id="{{modalKey.userView}}" tabindex="-1">
+	<div class="modal-dialog modal-lg">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+				<h4 class="modal-title" >{{isCreate ? '新增人員' : '修改人員' }}</h4>
+			</div>
+			<div class="modal-body form-horizontal">
+				<div class="form-group">
+	                <div ng-show="isCreate">
+						<label class="control-label col-lg-2">帳號</label>
+		          		<div class="col-lg-4">
+		          			<input class="form-control" ng-model="editData.userName" ng-blur="validate('帳號', $event)">
+		                </div>
+						<label class="control-label col-lg-1">密碼</label>
+		          		<div class="col-lg-4">
+		          			<input type="password" class="form-control" ng-model="editData.password" ng-blur="validate('密碼', $event)">
+		                </div>
+	                </div>
+				</div>
+				
+				<div class="form-group">
+					<label class="control-label col-lg-2">姓名</label>
+	          		<div class="col-lg-4">
+	          			<input class="form-control" ng-model="editData.name" ng-blur="validate('姓名', $event)">
+	                </div>
+					<label class="control-label col-lg-1">部門</label>
+	          		<div class="col-lg-4">
+	          			<select class="form-control"
+								ng-model="editData.depId"
+								ng-options="item.value as item.text for item in depItems"
+								ng-blur="validate('部門', $event)">
+							<option value="">請選擇</option>
+						</select>
+	                </div>
+				</div>
+				
+				<div class="form-group">
+					<label class="control-label col-lg-2">角色</label>
+	          		<div class="col-lg-4">
+	          			<select class="form-control"
+								ng-model="editData.roleId"
+								ng-options="item.value as item.text for item in roleItems"
+								ng-blur="validate('角色', $event)">
+							<option value="">請選擇</option>
+						</select>
+	                </div>
+					<label class="control-label col-lg-1">狀態</label>
+	          		<div class="col-lg-4">
+	          			<select class="form-control"
+								ng-model="editData.status"
+								ng-options="item.value as item.text for item in statusItems"
+								ng-blur="validate('狀態', $event)">
+							<option value="">請選擇</option>
+						</select>
+	                </div>
+				</div>
+				
+				<div class="form-group">
+					<label class="control-label col-lg-2">聯絡電話</label>
+	          		<div class="col-lg-4">
+	          			<input class="form-control" ng-model="editData.phone">
+	                </div>
+					<label class="control-label col-lg-1">email</label>
+	          		<div class="col-lg-4">
+	          			<input class="form-control" ng-model="editData.email">
+	                </div>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button ng-show="!isCreate" type="button" class="btn btn-danger" 
+						ng-click="revertPassword()" >
+						還原預設密碼
+				</button>
+				<button type="button" class="btn btn-primary" 
+						ng-click="confirm()" >
+						確定
+				</button>
+			</div>
+		</div>
+	</div>
+</div>

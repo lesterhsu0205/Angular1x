@@ -1,0 +1,19 @@
+<div style="margin-bottom: 20px;">
+	<ul class="pagination" ng-show="!isEmpty(pageCountInfos)">
+		<li>
+			<a href="javascript:;" aria-label="Previous" ng-click="previousPage()">
+				<span aria-hidden="true">&laquo;</span>
+			</a>
+		</li>
+		<li ng-repeat="info in pageCountInfos" 
+			class="{{curPage == $index ? 'active' : ''}}" 
+			ng-click="jumpPage($index)">
+			<a href="javascript:;">{{$index + 1}}</a>
+		</li>
+		<li>
+			<a href="javascript:;" aria-label="Next" ng-click="nextPage()">
+				<span aria-hidden="true">&raquo;</span>
+			</a>
+		</li>
+	</ul>
+</div>
