@@ -28,6 +28,8 @@
 					<wtpContextName>Angular1x</wtpContextName>
 				</configuration>
 			</plugin> -->
+
+			<!--測試 revert-->
 		</plugins>
 	</build>
 </project>
