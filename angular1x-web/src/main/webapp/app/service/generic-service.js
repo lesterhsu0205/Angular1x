@@ -1,4 +1,4 @@
-// (function() {
+(function() {
 
 
 	var genericServices = angular.module('genericServices', []);
@@ -157,4 +157,4 @@
 	
 	}]);
 	
-// }).call(this);
+}).call(this);

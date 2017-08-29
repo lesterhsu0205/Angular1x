@@ -1,4 +1,4 @@
-// (function() {
+(function() {
 	define(function () {
 	    var routeResolver = function () {
 
@@ -75,4 +75,4 @@
 	    servicesApp.provider('routeResolver', routeResolver);
 	});
 
-// }).call(null);
+}).call(this);

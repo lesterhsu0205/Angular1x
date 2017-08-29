@@ -1,4 +1,4 @@
-// (function() {
+(function() {
 	define([ 'appMain' ], function(appMain) {
 		
 		appMain.controller('mainController', [
@@ -59,4 +59,4 @@
 		}]);
 	});
 
-// }).call(this);
+}).call(this);

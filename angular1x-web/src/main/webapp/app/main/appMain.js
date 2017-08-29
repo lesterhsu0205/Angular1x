@@ -1,4 +1,4 @@
-// (function() {
+(function() {
 	define(function() {
 
 		var appMain = angular.module('appMain', [ 'ngRoute','routeResolverServices','genericServices']);
@@ -42,4 +42,4 @@
 		return appMain;
 
 	});
-// }).call(this);
+}).call(this);

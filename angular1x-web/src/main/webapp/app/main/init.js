@@ -1,5 +1,4 @@
-// (function() {
-
+(function() {
 	require.config({
 		waitSeconds : 60,
 		baseUrl : window.contextPath,
@@ -99,4 +98,4 @@
 		});
 	});
 	
-// })(this);
+})(this);
