@@ -9,7 +9,7 @@
 	    <meta name="description" content="">
 	    <meta name="author" content="">
 	
-	    <title>宇曦國際交通顧問監造管理系統</title>
+	    <title>LA G 管理系統</title>
 	
 	    <!-- Bootstrap Core CSS -->
 	    <link href="system-asset/css/bootstrap.css" rel="stylesheet">
@@ -42,7 +42,7 @@
 	                    <span class="icon-bar"></span>
 	                    <span class="icon-bar"></span>
 	                </button>
-	                <a class="navbar-brand" href="index.jsp"><i class="fa fa-fw fa-line-chart"></i>宇曦國際交通顧問</a>
+	                <a class="navbar-brand" href="index.jsp"><i class="fa fa-fw fa-line-chart"></i>LA G</a>
 	            </div>
 	            <!-- Top Menu Items -->
 	            <ul class="nav navbar-right top-nav">

@@ -37,7 +37,7 @@
         </property>
     </bean>
     <!-- <context:property-placeholder location="classpath:properties/config.properties" file-encoding="UTF-8" ignore-unresolvable="true" /> -->
-    
+
     <!-- jndi -->
     <!-- <bean id="dataSource" class="org.springframework.jndi.JndiObjectFactoryBean">
 	    <property name="jndiName" value="java:comp/env/${jndi.name}"/>
@@ -45,10 +45,11 @@
     
     <!-- jdbc --> 
 	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close">  
-        <property name="driverClass" value="${jdbc.driverClass}" />  
+        <property name="driverClass" value="${jdbc.driverClass}" />
         <property name="jdbcUrl" value="${jdbc.jdbcUrl}"/>
         <property name="user" value="${jdbc.user}" />
         <property name="password" value="${jdbc.password}" />
+		<property name="initialPoolSize" value="3"></property>
         <property name="minPoolSize" value="5" />
 		<property name="maxPoolSize" value="10" /> 
     </bean>
@@ -59,13 +60,13 @@
         <property name="configLocation" value="classpath:sqlMapConfig.xml" />
         <!-- 自動掃描 mapping.xml 文件 -->
         <property name="mapperLocations" value="classpath:sqlMap/*.xml"></property>
-    </bean>  
-  
+    </bean>
+
     <!-- (事務管理)transaction manager, use JtaTransactionManager for global tx -->
     <bean id="transactionManager"  
         class="org.springframework.jdbc.datasource.DataSourceTransactionManager">  
         <property name="dataSource" ref="dataSource" />  
     </bean>
-    
+
   	<tx:annotation-driven transaction-manager="transactionManager" />
 </beans>
