@@ -1,16 +1,10 @@
 package com.lester.support.util;
 
+import org.apache.ibatis.session.SqlSession;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import org.apache.ibatis.session.SqlSession;
-import org.apache.ibatis.session.SqlSessionFactory;
-import org.mybatis.spring.support.SqlSessionDaoSupport;
-import org.springframework.beans.factory.annotation.Autowired;
-
-import com.lester.core.model.CfgAuthUser;
-import com.lester.core.model.CfgSystemConfig;
 
 public class Session{
 	
