@@ -3,7 +3,6 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns:context="http://www.springframework.org/schema/context"
 	xmlns:mvc="http://www.springframework.org/schema/mvc"
-	xmlns:p="http://www.springframework.org/schema/p"
 	xmlns:tx="http://www.springframework.org/schema/tx"
 	xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.2.xsd
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.2.xsd
@@ -12,13 +11,13 @@
     
     <import resource="applicationContext-security.xml" />
     
-    <!-- 对web包中的所有类进行扫描，以完成Bean创建和自动依赖注入的功能 -->
+    <!-- 對 web 包中的所有類進行掃描，以完成 Bean 創建和自動依賴注入的功能 -->
     <context:component-scan base-package="com.lester"/>
     <!-- 聽說若所有 request 都要被 sevlet 攔截才需要加 目前只攔截.action 不太需要 -->
     <!-- request response 要對應物件用 極度噁心-->
 	<mvc:annotation-driven/>
 	
-	<!-- 多部分文件上传 -->
+	<!-- 多部分文件上傳 -->
 	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
 		<property name="maxUploadSize" value="104857600" />
 		<property name="maxInMemorySize" value="4096" />
@@ -54,15 +53,15 @@
 		<property name="maxPoolSize" value="10" /> 
     </bean>
   
-    <!-- spring和MyBatis完美整合，不需要mybatis的配置映射文件 -->  
+    <!-- spring 和 myBatis 完美整合，不需要 mybatis 的配置映射文件 -->
     <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">  
         <property name="dataSource" ref="dataSource" />
         <property name="configLocation" value="classpath:sqlMapConfig.xml" />
-        <!-- 自动扫描mapping.xml文件 -->  
+        <!-- 自動掃描 mapping.xml 文件 -->
         <property name="mapperLocations" value="classpath:sqlMap/*.xml"></property>
     </bean>  
   
-    <!-- (事务管理)transaction manager, use JtaTransactionManager for global tx -->  
+    <!-- (事務管理)transaction manager, use JtaTransactionManager for global tx -->
     <bean id="transactionManager"  
         class="org.springframework.jdbc.datasource.DataSourceTransactionManager">  
         <property name="dataSource" ref="dataSource" />  
