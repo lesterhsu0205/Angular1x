@@ -3,8 +3,6 @@ package test;
 import com.lester.core.dao.ICommonDao;
 import com.lester.core.dao.IUserDao;
 import com.lester.core.model.CfgAuthUser;
-import com.lester.support.util.Pagination;
-import com.lester.support.viewModel.Option;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +13,6 @@ import org.springframework.core.io.support.PropertiesLoaderUtils;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import java.util.List;
 import java.util.Properties;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -36,19 +33,19 @@ public class UserTest {
 		CfgAuthUser bean = userDao.loadUserByUsername("yyy", false);
 		System.out.println(bean);
 	}
-	
-	@Test
-	public void testOpt() throws Exception{
-		List<Option> opts = userDao.queryRoleOpts();
-		System.out.println(opts);
-	}
-	
-	@Test
-	public void testQuery() throws Exception{
-		List<CfgAuthUser> users = userDao.queryUsers(new Pagination(1, 2));
-		System.out.println(users);
-	}
-	
+
+//	@Test
+//	public void testOpt() throws Exception{
+//		List<Option> opts = userDao.queryRoleOpts();
+//		System.out.println(opts);
+//	}
+//
+//	@Test
+//	public void testQuery() throws Exception{
+//		List<CfgAuthUser> users = userDao.queryUsers(new Pagination(1, 2));
+//		System.out.println(users);
+//	}
+
 	@Test
 	public void testCount() throws Exception{
 		String count = userDao.queryUsersCount();

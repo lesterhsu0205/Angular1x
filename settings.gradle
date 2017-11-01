@@ -1,0 +1,4 @@
+rootProject.name = "Angular1x"
+
+include "angular1x-core"
+include "angular1x-web"
