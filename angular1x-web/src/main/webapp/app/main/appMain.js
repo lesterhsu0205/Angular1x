@@ -1,5 +1,5 @@
 (function() {
-	define(function() {
+    define(function () { // AMD 寫法
 
 		var appMain = angular.module('appMain', [ 'ngRoute','routeResolverServices','genericServices']);
 
