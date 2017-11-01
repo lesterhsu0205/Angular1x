@@ -1,22 +1,17 @@
 package com.lester.core.dao.impl;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-
+import com.lester.core.dao.IUserDao;
+import com.lester.core.model.CfgAuthUser;
+import com.lester.support.util.*;
+import com.lester.support.viewModel.Option;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Repository;
 
-import com.lester.core.dao.IUserDao;
-import com.lester.core.model.CfgAuthUser;
-import com.lester.support.util.CommonUtil;
-import com.lester.support.util.DlDaoSupport;
-import com.lester.support.util.LogUtil;
-import com.lester.support.util.Pagination;
-import com.lester.support.util.Session;
-import com.lester.support.viewModel.Option;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 @Repository
 @Scope(value = ConfigurableBeanFactory.SCOPE_SINGLETON)
@@ -72,7 +67,7 @@ public class UserDaoImpl extends DlDaoSupport implements IUserDao{
 		List<Map<String, Object>> maps = session.selectMap();
 		List<Option> opts = new ArrayList<>();
 		for (Map<String, Object> map : maps) {
-			opts.add(new Option(map.get("value"), map.get("text")));
+			opts.add(new Option<>(map.get("value"), map.get("text")));
 		}
 		return opts;
 	}
@@ -84,7 +79,7 @@ public class UserDaoImpl extends DlDaoSupport implements IUserDao{
 		List<Map<String, Object>> maps = session.selectMap();
 		List<Option> opts = new ArrayList<>();
 		for (Map<String, Object> map : maps) {
-			opts.add(new Option(map.get("value"), map.get("text")));
+			opts.add(new Option<>(map.get("value"), map.get("text")));
 		}
 		return opts;
 	}

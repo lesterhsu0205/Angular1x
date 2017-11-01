@@ -1,5 +1,9 @@
 package com.lester.support.util;
 
+import com.google.gson.Gson;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 import java.beans.BeanInfo;
 import java.beans.Introspector;
 import java.beans.PropertyDescriptor;
@@ -15,17 +19,9 @@ import java.text.DecimalFormatSymbols;
 import java.text.NumberFormat;
 import java.text.ParseException;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
-
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
-import com.google.gson.Gson;
 
 final public class CommonUtil {
 	private static Gson GSON;
@@ -79,9 +75,9 @@ final public class CommonUtil {
 	 * @return
 	 */
 	public static<T> T createClass(Class<T> c) throws NoSuchMethodException, SecurityException, InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {
-		Constructor<T> constructor = c.getDeclaredConstructor(new Class[0]);
+		Constructor<T> constructor = c.getDeclaredConstructor();
 		constructor.setAccessible(true);
-		T bean = constructor.newInstance(new Object[0]);
+		T bean = constructor.newInstance();
 		return bean;
 	}
 	
@@ -153,7 +149,6 @@ final public class CommonUtil {
 	/**
 	 * map key是colunName 轉 駝峰命名
 	 * @author Mark.Huang
-	 * @param dbColunDatas SQL取回的DB TABLE MAP
 	 */
 	public static Map<String, Object> columnNameToBeanName(Map<String, Object> dataMap) {
 		if(dataMap == null){
@@ -219,8 +214,8 @@ final public class CommonUtil {
 								    String k = pName;
 								    if (k != null) {
 								        // 從 map 取出值, 並呼叫 setter 把值寫入
-								        value = (Object)datas.get(k);
-								        
+										value = datas.get(k);
+
 //					                if (Boolean.class.isAssignableFrom(read.getReturnType()) 
 //					                        || boolean.class.isAssignableFrom(read.getReturnType())) {
 //					                    if (value != null) {
