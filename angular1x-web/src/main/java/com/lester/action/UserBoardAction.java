@@ -1,15 +1,4 @@
-package com.lester.core.action;
-
-import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.config.ConfigurableBeanFactory;
-import org.springframework.context.annotation.Scope;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+package com.lester.action;
 
 import com.lester.core.facade.IUserFacade;
 import com.lester.core.model.CfgAuthUser;
@@ -22,6 +11,16 @@ import com.lester.support.util.Pagination;
 import com.lester.support.viewModel.Option;
 import com.lester.support.viewModel.UserBoardEditReq;
 import com.lester.support.viewModel.UserBoardInitResp;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.config.ConfigurableBeanFactory;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import java.util.List;
 
 @Controller
 @Scope(value = ConfigurableBeanFactory.SCOPE_SINGLETON)

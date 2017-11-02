@@ -3,9 +3,9 @@ import java.text.SimpleDateFormat
 ext {
 
     /**
-     * 定义 manifest 文件输出内容。
+     * 定義 manifest 文件輸出内容
      *
-     * 调用方式：
+     * 調用方式：
      * jar {
      *     doFirst {
      *          manifest = defaultManifest([project: project, projectVendor: project_vendor])
@@ -15,7 +15,7 @@ ext {
     defaultManifest = {args ->
         def proj = args.project
         def projectVendor = args.projectVendor
-        // 如果未传入 version 参数，则默认采用传入的 proj 的属性
+        // 如果未傳入 version 參數，則默認採用傳入的 proj 的屬性
         def projectVersion = args.version ? args.version :  proj.version
 
         return manifest {
@@ -45,9 +45,9 @@ ext {
     }
 
     /**
-     * 根据给定文件中的数字自动加一，一般用于生产版本号后面的编译数字。
+     * 根據給定文件中的數字自動加一，一般用于生產版本號後面的編譯數字。
      *
-     * 调用方式：
+     * 調用方式：
      * def buildNumber = buildNumberIncrease([project: project, numFilename: 'build_number.data'])
      * version += '.' + buildNumber
      */

@@ -10,11 +10,6 @@ sourceSets {
 
 dependencies {
 
-    compile files(
-//            "WebContent/WEB-INF/lib/poi-3.15.jar",
-//            "WebContent/WEB-INF/lib/tk-filters-1.0.jar"
-    )
-
     compile(
             "org.apache.commons:commons-lang3:3.0",
             "org.springframework:spring-aop:${versions.spring}",
@@ -36,16 +31,11 @@ dependencies {
             "joda-time:joda-time:2.9.4",
             "log4j:log4j:1.2.17",
             "jstl:jstl:1.2",
-            "javax.servlet:javax.servlet-api:3.0.1",
-            "javax.servlet.jsp:javax.servlet.jsp-api:2.3.1",
     )
 
     runtime(
             "c3p0:c3p0:0.9.1.2",
             "mysql:mysql-connector-java:8.0.7-dmr",
-    )
-
-    runtime files(
     )
 
 }

@@ -1,8 +1,8 @@
 package com.lester.security;
 
-import java.util.ArrayList;
-import java.util.Collection;
-
+import com.lester.core.config.SysConfig;
+import com.lester.core.model.CfgAuthUser;
+import com.lester.core.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -12,9 +12,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
 
-import com.lester.core.config.SysConfig;
-import com.lester.core.model.CfgAuthUser;
-import com.lester.core.service.IUserService;
+import java.util.ArrayList;
+import java.util.Collection;
 
 @Component
 public class UserDetailsServiceImpl implements UserDetailsService {

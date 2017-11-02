@@ -1,10 +1,11 @@
 apply plugin: "war"
 archivesBaseName = "angular1x-web"
 
-// 设置默认 resources 为开发环境状态
-// 这儿如果不设置的话，idea 编译时只会默认获取 resources 目录
 sourceSets {
     main {
+        java{
+            srcDir "src/main/java"
+        }
         resources {
             srcDirs = ["src/main/resources"]
         }
@@ -25,17 +26,16 @@ dependencies {
             project(":angular1x-core"),
     )
 
-    // 因为此项目为 web 项目，所以需要将下述 jar 包设置为 provided
-    // 目前沒用 code 都寫在 core
-//    providedCompile(
-//            "javax.servlet:javax.servlet-api:3.0.1",
-//            "javax.servlet.jsp:javax.servlet.jsp-api:2.3.1",
-//    )
+    // 因為此項目為 web 項目，所以需要將下述 jar 包設置為 provided
+    providedCompile(
+            "javax.servlet:javax.servlet-api:3.0.1",
+            "javax.servlet.jsp:javax.servlet.jsp-api:2.3.1",
+    )
 
 }
 
-// 设置 snapshot war 版本号
-// 格式为： project-web-1.0.123-SNAPSHOT.war
+// 設定 snapshot war 版號
+// 格式： project-web-1.0.123-SNAPSHOT.war
 task setSnapshotWarVersion {
 
     doFirst {
@@ -62,7 +62,7 @@ task setSnapshotWarVersion {
     }
 }
 
-// 编译 snapshot 版的 war 包
+// 編譯 snapshot 版的 war 包
 task snapshot(dependsOn: ['setSnapshotWarVersion', 'war']) {
 
     doLast {
@@ -72,8 +72,8 @@ task snapshot(dependsOn: ['setSnapshotWarVersion', 'war']) {
 }
 
 //
-// 设置 release 包的版本号
-// 格式为: project-web-1.1.0.123.war
+// 設定 release 包的版號
+// 格式: project-web-1.0.123.war
 
 task setReleaseWarVersion {
     doFirst {

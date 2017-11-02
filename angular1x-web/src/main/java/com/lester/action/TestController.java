@@ -1,4 +1,4 @@
-package com.lester.core.action;
+package com.lester.action;
 
 import com.lester.core.dao.impl.UserDaoImpl;
 import com.lester.core.model.TestBean;
@@ -33,7 +33,7 @@ public class TestController extends ActionSupport{
 	@RequestMapping(value = "/song.action", method = RequestMethod.GET)
     public void index_jsp(Model model){  
 //        model.addAttribute("ORZ", "囧");  
-        System.out.println(testBen.XXX);
+        System.out.println(TestBean.XXX);
     }
 	
 //	@RequestMapping(value = "/testAjax.action", method = RequestMethod.POST)	

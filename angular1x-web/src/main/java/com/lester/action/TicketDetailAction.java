@@ -1,4 +1,4 @@
-package com.lester.core.action;
+package com.lester.action;
 
 import com.lester.core.cur.model.CurTicketFile;
 import com.lester.core.facade.ITicketDetailFacade;
