@@ -1,67 +1,87 @@
 package com.lester.core.service;
 
+import com.lester.core.model.CfgSystemConfig;
+import com.lester.support.viewModel.Option;
+
 import java.util.List;
 import java.util.Map;
 
-import com.lester.core.model.CfgSystemConfig;
-import com.lester.core.model.TicketQueryInitData;
-import com.lester.support.viewModel.Option;
-
+/**
+ * The interface Ticket common service.
+ */
 public interface ITicketCommonService {
 
 
 	/**
 	 * 取得縣市下拉選單
-	 * @return
+	 *
+	 * @return city items
+	 * @throws Exception the exception
 	 */
-	public List<CfgSystemConfig> getCityItems() throws Exception;
-	
+	List<CfgSystemConfig> getCityItems() throws Exception;
+
 	/**
 	 * 取得鄉鎮下拉選單
-	 * @return
+	 *
+	 * @return town items
+	 * @throws Exception the exception
 	 */
-	public Map<Long, List<CfgSystemConfig>> getTownItems() throws Exception;
-	
+	Map<Long, List<CfgSystemConfig>> getTownItems() throws Exception;
+
 	/**
 	 * 取得案件類型下拉選單
-	 * @return
+	 *
+	 * @return case type items
+	 * @throws Exception the exception
 	 */
-	public List<CfgSystemConfig> getCaseTypeItems() throws Exception;
-	
+	List<CfgSystemConfig> getCaseTypeItems() throws Exception;
+
 	/**
 	 * 取得案件分類下拉選單
-	 * @return
+	 *
+	 * @return case group items
+	 * @throws Exception the exception
 	 */
-	public List<CfgSystemConfig> getCaseGroupItems() throws Exception;
-	
+	List<CfgSystemConfig> getCaseGroupItems() throws Exception;
+
 	/**
 	 * 取得工單狀態下拉選單
-	 * @return
+	 *
+	 * @return status items
+	 * @throws Exception the exception
 	 */
-	public List<CfgSystemConfig> getStatusItems() throws Exception;
-	
+	List<CfgSystemConfig> getStatusItems() throws Exception;
+
 	/**
 	 * 取得工單子狀態下拉選單
-	 * @return
+	 *
+	 * @return sub status items
+	 * @throws Exception the exception
 	 */
-	public Map<Long, List<CfgSystemConfig>> getSubStatusItems() throws Exception;
-	
+	Map<Long, List<CfgSystemConfig>> getSubStatusItems() throws Exception;
+
 	/**
 	 * 取得檔案類型下拉選單
-	 * @return
+	 *
+	 * @return file type items
+	 * @throws Exception the exception
 	 */
-	public List<CfgSystemConfig> getFileTypeItems() throws Exception;
-	
+	List<CfgSystemConfig> getFileTypeItems() throws Exception;
+
 	/**
 	 * 取得年度下拉選單
-	 * @return
+	 *
+	 * @return year items
+	 * @throws Exception the exception
 	 */
-	public List<Option<Long, String>> getYearItems() throws Exception;
-	
+	List<Option<Long, String>> getYearItems() throws Exception;
+
 	/**
 	 * 取得期別下拉選單
-	 * @return
+	 *
+	 * @return season items
+	 * @throws Exception the exception
 	 */
-	public List<Option<Long, Long>> getSeasonItems() throws Exception;
-	
+	List<Option<Long, Long>> getSeasonItems() throws Exception;
+
 }

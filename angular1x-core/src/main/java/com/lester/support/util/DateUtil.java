@@ -9,13 +9,13 @@ import java.util.Date;
 
 /**
  * 跟日期相關的一些通用 method
- * @author
  *
+ * @author lesterhsu
  */
 public class DateUtil {
 
     //private static ILogger logger = com.fet.generic.logger.LoggerFactory.getLogger(DateUtil.class);
-    
+
     /**
      * 預設日期格式 - 日期部分
      */
@@ -41,17 +41,17 @@ public class DateUtil {
      * 預設日期格式 - 日期+時間 沒有分號
      */
     public static final String FORMAT_DATETIME_2 = "yyyyMMddHHmmss";
-    
+
     /**
      * 預設日期格式 - 日期+時間部分 只有時、分
      */
     public static final String FORMAT_DateTime_HHMM = "yyyy/MM/dd HH:mm";
-   
+
     /**
      * 預設日期格式 - 日期+月部
      */
     public final static String FORMAT_DATE_YYYYMM = "yyyyMM";
-	
+
     /**
      * 預設日期格式 - 西元年月日 yyyyMMdd
      */
@@ -60,11 +60,12 @@ public class DateUtil {
     private DateUtil() {
         
     }
-    
+
     /**
      * 將日期物件轉成字串 (將套用預設格式)
+     *
      * @param date : 日期物件
-     * @return
+     * @return string
      */
     public static String format(Date date) {
         return format(date, FORMAT_DateTime);
@@ -72,9 +73,10 @@ public class DateUtil {
 
     /**
      * 將日期物件轉成字串
-     * @param date : 日期物件
+     *
+     * @param date   : 日期物件
      * @param format : 格式 (傳入 null 的話, 將套用預設格式)
-     * @return
+     * @return string
      */
     public static String format(Date date, String format) {
 
@@ -99,13 +101,13 @@ public class DateUtil {
         
         return result;
     }
-    
+
     /**
      * {@link java.util.Date} 轉文字日期，預設格式使用 "yyyy/MM/dd"
-     * 
-     * @param dateStr
-     * @return
-     * @throws ParseException
+     *
+     * @param date the date
+     * @return string
+     * @throws ParseException the parse exception
      */
     public static String dateToText(Date date) throws ParseException {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
@@ -114,15 +116,14 @@ public class DateUtil {
         String dateStr = sdf.format(date);
         return dateStr;
     }
-    
+
     /**
      * {@link java.util.Date} 轉文字日期，使用自訂格式
-     * 
-     * @param dateStr
-     * @param format
-     *            "yyyy/MM/dd"
-     * @return
-     * @throws ParseException
+     *
+     * @param date   the date
+     * @param format "yyyy/MM/dd"
+     * @return string
+     * @throws ParseException the parse exception
      */
     public static String dateToText(Date date, String format) throws ParseException {
         SimpleDateFormat sdf = new SimpleDateFormat(format);
@@ -134,8 +135,10 @@ public class DateUtil {
 
     /**
      * 將日期物件轉成字串 (將套用預設格式)
-     * @param date : 日期物件
-     * @return
+     *
+     * @param date         : 日期物件
+     * @param defaultValue the default value
+     * @return string
      */
     public static String formatWithDefaultValue(Date date, String defaultValue) {
         return formatWithDefaultValue(date, FORMAT_DateTime, defaultValue);
@@ -143,9 +146,11 @@ public class DateUtil {
 
     /**
      * 將日期物件轉成字串
-     * @param date : 日期物件
-     * @param format : 格式 (傳入 null 的話, 將套用預設格式)
-     * @return
+     *
+     * @param date         : 日期物件
+     * @param format       : 格式 (傳入 null 的話, 將套用預設格式)
+     * @param defaultValue the default value
+     * @return string
      */
     public static String formatWithDefaultValue(Date date, String format, String defaultValue) {
 
@@ -158,11 +163,12 @@ public class DateUtil {
 
         return result;
     }
-    
+
     /**
      * 把日期格式的字串轉成日期物件 (將套用預設格式來做轉換)
+     *
      * @param date : 日期字串
-     * @return
+     * @return date
      */
     public static Date parse(String date) {
         return parse(date, FORMAT_DateTime);
@@ -170,9 +176,10 @@ public class DateUtil {
 
     /**
      * 把日期格式的字串轉成日期物件
-     * @param date : 日期字串
+     *
+     * @param date   : 日期字串
      * @param format : 日期字串的格式 (傳入 null 的話, 將套用預設格式來做轉換)
-     * @return
+     * @return date
      */
     public static Date parse(String date, String format) {
 
@@ -197,26 +204,29 @@ public class DateUtil {
         
         return result;
     }
+
     /**
      * 報表專用，將日期加一天以利查詢
-     * @param date : 日期字串
+     *
+     * @param date   : 日期字串
      * @param format : 日期字串的格式 (傳入 null 的話, 將套用預設格式來做轉換)
-     * @return
-     */   
+     * @return date
+     */
     public static Date reportParseDay(String date, String format) {
     	Calendar cal = Calendar.getInstance();
         cal.setTime(parse(date,format));
         cal.add(Calendar.DATE, 1);
         cal.add(Calendar.SECOND,-1);
     	return cal.getTime() ;
-    };
-    
+    }
+
     /**
      * 檢查兩日期的相差值, 是否在一定的誤差之內
-     * @param date1 : 要檢查的日期之一
-     * @param date2 : 要檢查的日期之二
+     *
+     * @param date1  : 要檢查的日期之一
+     * @param date2  : 要檢查的日期之二
      * @param diffMs : 可以接受的誤差範圍 (毫秒)
-     * @return
+     * @return boolean
      */
     public static boolean equalByDiff(Date date1, Date date2, long diffMs) {
         boolean result = false;
@@ -231,13 +241,14 @@ public class DateUtil {
         
         return result;
     }
-    
+
     /**
      * 檢查兩日期的相差值, 是否在一定的誤差之內
-     * @param date1 : 要檢查的日期之一
-     * @param date2 : 要檢查的日期之二
+     *
+     * @param date1   : 要檢查的日期之一
+     * @param date2   : 要檢查的日期之二
      * @param diffDay : 可以接受的誤差範圍 (天)
-     * @return
+     * @return boolean
      */
     public static boolean equalByDiffDay(Date date1, Date date2, long diffDay) {
     	return equalByDiff(date1, date2, diffDay*86400*1000);
@@ -245,10 +256,11 @@ public class DateUtil {
 
     /**
      * 檢查日期一是否比日期二早 ( 在一定的誤差之內 )
-     * @param date1 : 要檢查的日期之一
-     * @param date2 : 要檢查的日期之二
+     *
+     * @param date1  : 要檢查的日期之一
+     * @param date2  : 要檢查的日期之二
      * @param diffMs : 可以接受的誤差範圍 (毫秒)
-     * @return
+     * @return boolean
      */
     public static boolean beforeByDiff(Date date1, Date date2, long diffMs) {
         boolean result = false;
@@ -275,10 +287,11 @@ public class DateUtil {
 
     /**
      * 檢查日期一是否比日期二晚, 是否在一定的誤差之內
-     * @param date1 : 要檢查的日期之一
-     * @param date2 : 要檢查的日期之二
+     *
+     * @param date1  : 要檢查的日期之一
+     * @param date2  : 要檢查的日期之二
      * @param diffMs : 可以接受的誤差範圍 (毫秒)
-     * @return
+     * @return boolean
      */
     public static boolean afterByDiff(Date date1, Date date2, long diffMs) {
         boolean result = false;
@@ -302,7 +315,13 @@ public class DateUtil {
         
         return result;
     }
-    
+
+    /**
+     * Timestamp to date date.
+     *
+     * @param timestamp the timestamp
+     * @return the date
+     */
     public static Date TimestampToDate(Timestamp timestamp) {
     	Date result = null;
     	if(timestamp != null) {
@@ -310,13 +329,14 @@ public class DateUtil {
     	}
     	return result;
     }
-    
+
     /**
-     * 判斷所給的source 是不是在start & end區間
-     * @param startDate
-     * @param endDate
-     * @param sourceDate
-     * @return
+     * 判斷所給的source 是不是在 start ~ end 區間
+     *
+     * @param startDate  the start date
+     * @param endDate    the end date
+     * @param sourceDate the source date
+     * @return boolean
      */
     public static boolean isInterval(Date startDate, Date endDate, Date sourceDate) {
     	boolean res = false;
@@ -328,7 +348,14 @@ public class DateUtil {
     	
     	return res;
     }
-    
+
+    /**
+     * After boolean.
+     *
+     * @param sourceDate the source date
+     * @param targetDate the target date
+     * @return the boolean
+     */
     public static boolean after(Date sourceDate , Date targetDate) {
         boolean res = false;
         if(sourceDate!=null && targetDate!=null) {
@@ -336,7 +363,14 @@ public class DateUtil {
         }
         return res;
     }
-    
+
+    /**
+     * Before boolean.
+     *
+     * @param sourceDate the source date
+     * @param targetDate the target date
+     * @return the boolean
+     */
     public static boolean before(Date sourceDate , Date targetDate) {
         boolean res = false;
         if(sourceDate!=null && targetDate!=null) {
