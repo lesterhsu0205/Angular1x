@@ -1,6 +1,7 @@
 apply plugin: "idea"
 apply plugin: "eclipse"
 apply from: "build-groovy.gradle"
+apply from: "utils.gradle"
 
 idea {
     project {
@@ -14,17 +15,12 @@ allprojects {
     //apply plugin: 'license'
     apply plugin: "java"
 
-    // 由于根下屏蔽了 java 插件，所以把这些方法定义转移到各个子项目下读取
-    apply from: "https://gist.githubusercontent.com/someok/43d4ea94ea9db7e760a3108aae870913/raw/0d9a6f2e95815646e202e0244f58a34b89d00f98/utils.gradle"
-
     group = project_group
     version = project_ver
 
     sourceCompatibility = JavaVersion.VERSION_1_8
     targetCompatibility = JavaVersion.VERSION_1_8
 
-    // 编码改为 UTF-8, 否则编译源码的时候会出错
-    // 当然，这个需要根据自己的 java 源码的编码进行调整
     [compileJava, compileTestJava, javadoc]*.options*.encoding = project_encoding
 
     ext.versions = [
@@ -42,7 +38,7 @@ subprojects { subproj ->
     jar {
         excludes = ['**/rebel.xml', '**/.keep']
         doFirst {
-            // 生成jar 包的时候按此规则生成 manifest 文件
+            // 生成 jar 包的時候按此規則生成 manifest 文件
             manifest = defaultManifest([
                     project      : subproj,
                     projectVendor: project_vendor
@@ -74,27 +70,22 @@ subprojects { subproj ->
 
     artifacts {
         archives jar
-//        archives javadocJar
+        archives javadocJar
         archives sourcesJar
     }
 
     configurations {
-        // 所有需要忽略的包定义在此
+        // 所有需要忽略的包定義在這
 //		all*.exclude group: 'commons-httpclient'
-//		all*.exclude group: 'commons-logging'
-//		all*.exclude group: 'commons-beanutils', module: 'commons-beanutils'
     }
 
     dependencies {
 
-        // 通用依赖
+        // 共用依賴
 //		compile(
-//				libraries.'logback-classic',
-//				libraries.'jcl-over-slf4j',
-//				libraries.'log4j-over-slf4j',
 //		)
 
-        // 测试依赖
+        // 共用測試依賴
         testCompile(
                 "org.springframework:spring-test:${versions.spring}",
                 "org.hamcrest:hamcrest-library:1.3",
@@ -104,7 +95,7 @@ subprojects { subproj ->
             exclude group: "org.hamcrest", module: "hamcrest-core"
         }
 
-        // 另外引入本地端根目录和各子项目下的libs中的jar包
+        // 各自 project 若有 local jar 另外載入
         ext.jarTree = fileTree(dir: 'libs', include: '**/*.jar')
         ext.rootProjectLibs = new File(rootProject.rootDir, 'libs').getAbsolutePath()
         ext.jarTree += fileTree(dir: rootProjectLibs, include: '**/*.jar')
