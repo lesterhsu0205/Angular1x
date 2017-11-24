@@ -1,4 +1,4 @@
-package com.lester.core.config;
+package com.lester.config;
 
 public class SysConfig {
 	

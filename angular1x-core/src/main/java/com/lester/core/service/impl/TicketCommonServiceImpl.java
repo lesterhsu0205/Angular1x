@@ -1,23 +1,14 @@
 package com.lester.core.service.impl;
 
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import org.apache.commons.lang3.StringUtils;
+import com.lester.config.SysConfig;
+import com.lester.core.dao.ICfgSysConfigDao;
+import com.lester.core.model.CfgSystemConfig;
+import com.lester.core.service.ITicketCommonService;
+import com.lester.support.viewModel.Option;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.lester.core.config.SysConfig;
-import com.lester.core.dao.ICfgSysConfigDao;
-import com.lester.core.dao.ITicketDetailDao;
-import com.lester.core.model.CfgSystemConfig;
-import com.lester.core.model.TicketQueryInitData;
-import com.lester.core.service.ITicketQueryService;
-import com.lester.core.service.ITicketCommonService;
-import com.lester.support.viewModel.Option;
+import java.util.*;
 
 @Service
 public class TicketCommonServiceImpl implements ITicketCommonService{

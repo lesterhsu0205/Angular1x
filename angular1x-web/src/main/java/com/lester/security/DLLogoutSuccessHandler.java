@@ -1,6 +1,6 @@
 package com.lester.security;
 
-import com.lester.core.config.SysConfig;
+import com.lester.config.SysConfig;
 import com.lester.support.util.LogUtil;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.logout.SimpleUrlLogoutSuccessHandler;

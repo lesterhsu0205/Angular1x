@@ -56,9 +56,46 @@ public class DateUtil {
      * 預設日期格式 - 西元年月日 yyyyMMdd
      */
     public final static String FORMAT_DATE_YYYYMMDD = "yyyyMMdd";
-    
+
+    private static SimpleDateFormat sdf = null;
+
     private DateUtil() {
         
+    }
+
+    // singleton
+    private static void initSdf() {
+        if (sdf == null) {
+            synchronized (DateUtil.class) {
+                if (sdf == null) {
+                    sdf = new SimpleDateFormat();
+                }
+            }
+        }
+    }
+
+    public static String toString(String pattern, Date date) {
+        if (date == null) {
+            return "";
+        }
+        initSdf();
+        sdf.applyPattern(pattern);
+        return sdf.format(date);
+    }
+
+    public static Timestamp toSqlTimestamp(Date date) {
+        if (date == null) {
+            return null;
+        }
+
+        return new java.sql.Timestamp(date.getTime());
+
+    }
+
+    public static Date toDate(String sDate, String pattern) throws Exception {
+        initSdf();
+        sdf.applyPattern(pattern);
+        return sdf.parse(sDate);
     }
 
     /**

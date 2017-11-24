@@ -1,6 +1,6 @@
 package com.lester.security;
 
-import com.lester.core.config.SysConfig;
+import com.lester.config.SysConfig;
 import com.lester.core.model.CfgAuthUser;
 import com.lester.core.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
