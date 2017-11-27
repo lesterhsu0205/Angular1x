@@ -1,14 +1,16 @@
-package com.lester.support.handler;
+package com.lester.support.model;
+
+import com.lester.support.handler.TransactionManager;
 
 public interface ServiceClosure {
-	
-	public interface isRetrun<T> {
+
+	interface isRetrun<T> {
 
 		T run(TransactionManager txManager) throws Exception;
 		
 	}
-	
-	public interface isNotReturn {
+
+	interface isNotReturn {
 
 		void run(TransactionManager txManager) throws Exception;
 		

@@ -18,7 +18,7 @@ import com.lester.core.model.TicketHisStatusRes;
 import com.lester.core.model.UploadFileInfo;
 import com.lester.core.service.ITicketDetailService;
 import com.lester.support.handler.FacadeSupport;
-import com.lester.support.handler.ServiceClosure;
+import com.lester.support.model.ServiceClosure;
 import com.lester.support.handler.TransactionManager;
 import com.lester.support.util.TableRes;
 
