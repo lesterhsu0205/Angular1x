@@ -11,8 +11,8 @@ import com.lester.core.model.ModifyPasswordParam;
 import com.lester.core.model.ResultMsg;
 import com.lester.core.service.IUserService;
 import com.lester.support.util.Pagination;
-import com.lester.support.viewModel.Option;
-import com.lester.support.viewModel.UserBoardEditReq;
+import com.lester.core.viewModel.Option;
+import com.lester.core.viewModel.UserBoardEditReq;
 
 @Component
 public class UserFacadeImpl implements IUserFacade{

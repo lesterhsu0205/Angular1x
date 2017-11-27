@@ -1,4 +1,4 @@
-package com.lester.support.viewModel;
+package com.lester.core.viewModel;
 
 import java.io.Serializable;
 

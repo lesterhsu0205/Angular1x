@@ -8,10 +8,10 @@ import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Repository;
 
-import com.lester.core.cur.model.CurTicketAddr;
-import com.lester.core.cur.model.CurTicketFile;
-import com.lester.core.cur.model.CurTicketMain;
-import com.lester.core.cur.model.CurTicketStatus;
+import com.lester.core.model.CurTicketAddr;
+import com.lester.core.model.CurTicketFile;
+import com.lester.core.model.CurTicketMain;
+import com.lester.core.model.CurTicketStatus;
 import com.lester.core.dao.ITicketDetailDao;
 import com.lester.core.model.Address;
 import com.lester.core.model.FileInfoQueryParam;

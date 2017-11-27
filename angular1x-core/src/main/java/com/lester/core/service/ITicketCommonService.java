@@ -1,7 +1,7 @@
 package com.lester.core.service;
 
 import com.lester.core.model.CfgSystemConfig;
-import com.lester.support.viewModel.Option;
+import com.lester.core.viewModel.Option;
 
 import java.util.List;
 import java.util.Map;

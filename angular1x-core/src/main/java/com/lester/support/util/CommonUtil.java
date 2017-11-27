@@ -1,19 +1,24 @@
 package com.lester.support.util;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonObject;
+import com.lester.config.SysConst;
+import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 
 import java.beans.BeanInfo;
 import java.beans.Introspector;
 import java.beans.PropertyDescriptor;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
+import java.io.*;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.math.BigDecimal;
+import java.net.HttpURLConnection;
+import java.net.InetAddress;
+import java.net.URL;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.text.NumberFormat;
@@ -26,7 +31,12 @@ import java.util.Map;
 /**
  * The type Common util.
  */
-final public class CommonUtil {
+public final class CommonUtil {
+
+    private final static Logger log = Logger.getLogger(CommonUtil.class);
+
+    private static Base64 base64 = null;
+
 	private static Gson GSON;
 
 	static {
@@ -337,5 +347,108 @@ final public class CommonUtil {
 
 		return result;
 	}
+
+    public static String base64Encode(String source) throws Exception {
+        initBase64();
+        return base64.encodeToString(source.getBytes("UTF-8"));
+    }
+
+    public static String base64Decode(String source) throws Exception {
+        initBase64();
+        return new String(base64.decode(source));
+    }
+
+    public static String callWebService(String path, String method, String contentType,
+                                        Map<String, Object> paramMap) {
+        try {
+            log.info("url : " + path);
+            log.info("param : " + JsonUtil.toJson(paramMap));
+
+            // 如果是 get 必須先組字串
+            if ("get".equalsIgnoreCase(method)) {
+                if (paramMap != null && paramMap.size() > 0) {
+                    path += "?";
+                    for (String key : paramMap.keySet()) {
+                        path += key + "=" + paramMap.get(key) + "&";
+                    }
+                    path = path.substring(0, path.length() - 1);
+                }
+            }
+
+            URL url = new URL(path);
+            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+
+            if ("get".equalsIgnoreCase(method)) {
+                conn.setRequestMethod("GET");
+                //WXS token ip檢核用
+                InetAddress localhost = InetAddress.getLocalHost();
+                conn.setRequestProperty("Client_IP", localhost.getHostAddress());
+            } else if ("post".equalsIgnoreCase(method) && SysConst.formType.equals(contentType)) {
+                conn.setDoOutput(true);
+                conn.setRequestMethod("POST");
+                conn.setRequestProperty("Content-Type", contentType);
+
+                String param = "";
+                for (String key : paramMap.keySet()) {
+
+                    param += key + "=" + paramMap.get(key) + "&";
+                }
+                //清除最後的&
+                param = param.substring(0, param.length() - 1);
+
+                OutputStream os = conn.getOutputStream();
+                os.write(param.getBytes());
+                os.flush();
+
+            } else if ("post".equalsIgnoreCase(method) && SysConst.jsonType.equals(contentType)) {
+                conn.setDoOutput(true);
+                conn.setRequestMethod("POST");
+                conn.setRequestProperty("Content-Type", contentType);
+                JsonObject json = new JsonObject();
+
+                for (String key : paramMap.keySet()) {
+                    json.addProperty(key, paramMap.get(key).toString());
+                }
+
+                OutputStreamWriter os = new OutputStreamWriter(conn.getOutputStream());
+                os.write(json.toString());
+                os.flush();
+
+            } else {
+                throw new RuntimeException("http method 需要為 get 或 post");
+            }
+
+            if (conn.getResponseCode() != HttpURLConnection.HTTP_OK) {
+                throw new RuntimeException("Failed : HTTP error code : "
+                        + conn.getResponseCode());
+            }
+
+            BufferedReader br = new BufferedReader(new InputStreamReader(
+                    (conn.getInputStream()), "UTF-8"));
+
+            String output = "";
+            String temp;
+            while ((temp = br.readLine()) != null) {
+                output += temp;
+            }
+
+            conn.disconnect();
+            log.info("resp : " + output);
+            return output;
+        } catch (Exception e) {
+            log.error(path + "，API fail : " + e.getMessage(), e);
+            return "{}";
+        }
+    }
+
+    private static void initBase64() {
+        if (base64 == null) {
+            synchronized (CommonUtil.class) {
+                if (base64 == null) {
+                    base64 = new Base64();
+                }
+            }
+        }
+    }
 
 }

@@ -16,8 +16,8 @@ import com.lester.support.util.ApEvn;
 import com.lester.support.util.CommonUtil;
 import com.lester.support.util.LogUtil;
 import com.lester.support.util.Pagination;
-import com.lester.support.viewModel.Option;
-import com.lester.support.viewModel.UserBoardEditReq;
+import com.lester.core.viewModel.Option;
+import com.lester.core.viewModel.UserBoardEditReq;
 
 @Service
 public class UserServiceImpl implements IUserService{

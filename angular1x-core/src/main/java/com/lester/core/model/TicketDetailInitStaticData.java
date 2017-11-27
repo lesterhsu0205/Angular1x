@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.lester.support.util.DateUtil;
-import com.lester.support.viewModel.Option;
+import com.lester.core.viewModel.Option;
 
 public class TicketDetailInitStaticData extends ResultMsg implements Serializable{
 	

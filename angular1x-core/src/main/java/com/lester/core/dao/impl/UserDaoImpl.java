@@ -3,7 +3,7 @@ package com.lester.core.dao.impl;
 import com.lester.core.dao.IUserDao;
 import com.lester.core.model.CfgAuthUser;
 import com.lester.support.util.*;
-import com.lester.support.viewModel.Option;
+import com.lester.core.viewModel.Option;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.annotation.Scope;

@@ -1,31 +1,31 @@
 package com.lester.core.facade;
 
-import java.util.List;
-
 import com.lester.core.model.CfgAuthUser;
 import com.lester.core.model.ModifyPasswordParam;
 import com.lester.core.model.ResultMsg;
+import com.lester.core.viewModel.Option;
+import com.lester.core.viewModel.UserBoardEditReq;
 import com.lester.support.util.Pagination;
-import com.lester.support.viewModel.Option;
-import com.lester.support.viewModel.UserBoardEditReq;
+
+import java.util.List;
 
 public interface IUserFacade {
-	
-	public List<CfgAuthUser> queryUsers (Pagination pagination) throws Exception;
-	
-	public String queryUsersCount() throws Exception;
-	
-	public List<Option> queryDepOpts() throws Exception;
-	
-	public List<Option> queryRoleOpts() throws Exception;
-	
-	public ResultMsg inserUser(UserBoardEditReq req, CfgAuthUser loginUser) throws Exception;
-	
-	public ResultMsg updateUser(UserBoardEditReq req, CfgAuthUser loginUser) throws Exception;
-	
-	public boolean isHasUser(String userName, String oldPassword) throws Exception;
-	
-	public ResultMsg modifyPassword(CfgAuthUser user, ModifyPasswordParam param)  throws Exception;
-	
-	public ResultMsg revertPassword(CfgAuthUser user, CfgAuthUser loginUser)  throws Exception;
+
+    List<CfgAuthUser> queryUsers(Pagination pagination) throws Exception;
+
+    String queryUsersCount() throws Exception;
+
+    List<Option> queryDepOpts() throws Exception;
+
+    List<Option> queryRoleOpts() throws Exception;
+
+    ResultMsg inserUser(UserBoardEditReq req, CfgAuthUser loginUser) throws Exception;
+
+    ResultMsg updateUser(UserBoardEditReq req, CfgAuthUser loginUser) throws Exception;
+
+    boolean isHasUser(String userName, String oldPassword) throws Exception;
+
+    ResultMsg modifyPassword(CfgAuthUser user, ModifyPasswordParam param) throws Exception;
+
+    ResultMsg revertPassword(CfgAuthUser user, CfgAuthUser loginUser) throws Exception;
 }

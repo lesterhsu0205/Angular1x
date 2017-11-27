@@ -1,8 +1,7 @@
-package tw.com.platform.util;
+package com.lester.support.util;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.lester.support.util.DateUtil;
 import org.apache.log4j.Logger;
 import org.json.JSONObject;
 

@@ -1,6 +1,6 @@
 package com.lester.action;
 
-import com.lester.core.cur.model.CurTicketFile;
+import com.lester.core.model.CurTicketFile;
 import com.lester.core.facade.ITicketDetailFacade;
 import com.lester.core.model.*;
 import com.lester.support.handler.ActionSupport;

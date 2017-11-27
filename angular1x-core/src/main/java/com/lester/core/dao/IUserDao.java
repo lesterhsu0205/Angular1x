@@ -1,30 +1,30 @@
 package com.lester.core.dao;
 
-import java.util.List;
-
 import com.lester.core.model.CfgAuthUser;
+import com.lester.core.viewModel.Option;
 import com.lester.support.util.Pagination;
-import com.lester.support.viewModel.Option;
+
+import java.util.List;
 
 public interface IUserDao {
 
-	public List<CfgAuthUser> queryUsers(Pagination pagination) throws Exception;
-	
-	public Integer inserUser(CfgAuthUser user) throws Exception;
-	
-	public Integer deleteUserById(String userId) throws Exception;
-	
-	public Integer updateUser(CfgAuthUser user) throws Exception;
-	
-	public String queryUsersCount() throws Exception;
-	
-	public List<Option> queryDepOpts() throws Exception;
-	
-	public List<Option> queryRoleOpts() throws Exception;
-	
-	public CfgAuthUser loadUserByUsername(String userName, boolean ignoreSts) throws Exception;
-	
-	public boolean isHasUser(String userName, String oldPassword) throws Exception;
-	
-	public Integer updatePassword(CfgAuthUser user) throws Exception;
+    List<CfgAuthUser> queryUsers(Pagination pagination) throws Exception;
+
+    Integer inserUser(CfgAuthUser user) throws Exception;
+
+    Integer deleteUserById(String userId) throws Exception;
+
+    Integer updateUser(CfgAuthUser user) throws Exception;
+
+    String queryUsersCount() throws Exception;
+
+    List<Option> queryDepOpts() throws Exception;
+
+    List<Option> queryRoleOpts() throws Exception;
+
+    CfgAuthUser loadUserByUsername(String userName, boolean ignoreSts) throws Exception;
+
+    boolean isHasUser(String userName, String oldPassword) throws Exception;
+
+    Integer updatePassword(CfgAuthUser user) throws Exception;
 }

@@ -11,10 +11,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
-import com.lester.core.cur.model.CurTicketAddr;
-import com.lester.core.cur.model.CurTicketFile;
-import com.lester.core.cur.model.CurTicketMain;
-import com.lester.core.cur.model.CurTicketStatus;
+import com.lester.core.model.CurTicketAddr;
+import com.lester.core.model.CurTicketFile;
+import com.lester.core.model.CurTicketMain;
+import com.lester.core.model.CurTicketStatus;
 import com.lester.core.dao.ICfgSysConfigDao;
 import com.lester.core.dao.ITicketDetailDao;
 import com.lester.core.model.Address;

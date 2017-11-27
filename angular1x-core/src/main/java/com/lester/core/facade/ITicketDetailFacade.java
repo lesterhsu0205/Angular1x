@@ -1,6 +1,6 @@
 package com.lester.core.facade;
 
-import com.lester.core.cur.model.CurTicketFile;
+import com.lester.core.model.CurTicketFile;
 import com.lester.core.model.CfgAuthUser;
 import com.lester.core.model.FileInfoQueryParam;
 import com.lester.core.model.FileInfoRes;

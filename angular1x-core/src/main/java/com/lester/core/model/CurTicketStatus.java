@@ -1,4 +1,4 @@
-package com.lester.core.cur.model;
+package com.lester.core.model;
 
 import java.io.Serializable;
 import java.util.Date;

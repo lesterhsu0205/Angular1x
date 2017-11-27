@@ -35,7 +35,10 @@ dependencies {
             // 後續為了疑移 util 而加的
             "org.json:json:20171018",
             "org.hibernate:hibernate-core:5.2.12.Final",
-            "com.google.guava:guava:23.0"
+            "com.google.guava:guava:23.0",
+            "org.apache.poi:poi-ooxml:3.17",
+
+
 
 
 

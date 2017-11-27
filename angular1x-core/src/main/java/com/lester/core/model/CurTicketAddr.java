@@ -1,26 +1,27 @@
-package com.lester.core.cur.model;
+package com.lester.core.model;
 
 import java.io.Serializable;
 import java.util.Date;
 
-public class CurTicketFile implements Serializable{
-	
+public class CurTicketAddr implements Serializable{
+ 
 	private Long id; //流水號
 	private Long ticketId; //工單ID
-	private String path; //檔案路徑
-	private String fileName; //檔案名稱
-	private Long fileType; //檔案類型
-	private String remark; //備註
+	private Long city; //縣市
+	private Long town; //鄉鎮區
+	private String addr; //路街巷號
+	private Boolean status; //狀態(啟用,停用)
 	private Date createDate; //新增日期
 	private Long createUser; //新增人員
 	private Date updateDate; //更新日期
 	private Long updateUser; //更新人員
 	
-	public String getFileName() {
-		return fileName;
+	
+	public Boolean getStatus() {
+		return status;
 	}
-	public void setFileName(String fileName) {
-		this.fileName = fileName;
+	public void setStatus(Boolean status) {
+		this.status = status;
 	}
 	public Long getId() {
 		return id;
@@ -34,23 +35,23 @@ public class CurTicketFile implements Serializable{
 	public void setTicketId(Long ticketId) {
 		this.ticketId = ticketId;
 	}
-	public String getPath() {
-		return path;
+	public Long getCity() {
+		return city;
 	}
-	public void setPath(String path) {
-		this.path = path;
+	public void setCity(Long city) {
+		this.city = city;
 	}
-	public Long getFileType() {
-		return fileType;
+	public Long getTown() {
+		return town;
 	}
-	public void setFileType(Long fileType) {
-		this.fileType = fileType;
+	public void setTown(Long town) {
+		this.town = town;
 	}
-	public String getRemark() {
-		return remark;
+	public String getAddr() {
+		return addr;
 	}
-	public void setRemark(String remark) {
-		this.remark = remark;
+	public void setAddr(String addr) {
+		this.addr = addr;
 	}
 	public Date getCreateDate() {
 		return createDate;
@@ -76,4 +77,6 @@ public class CurTicketFile implements Serializable{
 	public void setUpdateUser(Long updateUser) {
 		this.updateUser = updateUser;
 	}
+
+ 
 }

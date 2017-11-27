@@ -91,6 +91,65 @@ public class SysConst {
         public final static String CLOSE_PERIOD_END = "CLOSE_PERIOD_END";
     }
 
+    public final static class CodeCate {
+        /**
+         * 縣市
+         */
+        public final static String CITY = "CITY";
+        /**
+         * 鄉鎮
+         */
+        public final static String TOWN = "TOWN";
+        /**
+         * 案件類型
+         */
+        public final static String CASE_TYPE = "CASE_TYPE";
+        /**
+         * 案件分類
+         */
+        public final static String CASE_GROUP = "CASE_GROUP";
+        /**
+         * 工單狀態
+         */
+        public final static String STATUS = "STATUS";
+        /**
+         * 工單子狀態
+         */
+        public final static String SUB_STATUS = "SUB_STATUS";
+        /**
+         * 檔案類型
+         */
+        public final static String FILE_TYPE = "FILE_TYPE";
+        /**
+         * 預設資料
+         */
+        public final static String DEFAULT_CONFIG = "DEFAULT_CONFIG";
+    }
+
+
+    public final static class Code {
+        /**
+         * 預設年度區間上限
+         */
+        public final static String DEFAULT_CONFIG_YEAR_RANGE_UPPER = "DEFAULT_CONFIG_YEAR_RANGE_UPPER";
+        /**
+         * 預設年度區間下限
+         */
+        public final static String DEFAULT_CONFIG_YEAR_RANGE_LOWER = "DEFAULT_CONFIG_YEAR_RANGE_LOWER";
+        /**
+         * 預設期別數量
+         */
+        public final static String DEFAULT_CONFIG_SEASON_COUNT = "DEFAULT_CONFIG_SEASON_COUNT";
+    }
+
+    public final static class Security {
+        public final static String ROLE_USER = "ROLE_USER";
+    }
+
+    public final static class SessionKey {
+        public final static String LOGINUSER = "loginUser";
+    }
+
     public enum RestValid {
 
         // 訊息

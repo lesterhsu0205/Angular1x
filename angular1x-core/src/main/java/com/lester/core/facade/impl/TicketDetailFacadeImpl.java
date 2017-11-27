@@ -2,9 +2,8 @@ package com.lester.core.facade.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.springframework.transaction.annotation.Transactional;
 
-import com.lester.core.cur.model.CurTicketFile;
+import com.lester.core.model.CurTicketFile;
 import com.lester.core.facade.ITicketDetailFacade;
 import com.lester.core.model.CfgAuthUser;
 import com.lester.core.model.FileInfoQueryParam;

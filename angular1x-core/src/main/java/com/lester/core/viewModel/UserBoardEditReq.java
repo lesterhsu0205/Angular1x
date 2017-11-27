@@ -1,8 +1,8 @@
-package com.lester.support.viewModel;
-
-import java.io.Serializable;
+package com.lester.core.viewModel;
 
 import com.lester.core.model.CfgAuthUser;
+
+import java.io.Serializable;
 
 public class UserBoardEditReq implements Serializable{
 	
