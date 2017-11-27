@@ -1,4 +1,4 @@
-package tw.com.platform.util;
+package com.lester.support.util;
 
 public class MathUtil {
 

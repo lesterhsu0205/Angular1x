@@ -1,6 +1,6 @@
 package com.lester.security;
 
-import com.lester.config.SysConfig;
+import com.lester.config.SysConst;
 import com.lester.support.util.LogUtil;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.logout.SimpleUrlLogoutSuccessHandler;
@@ -16,8 +16,8 @@ public class DLLogoutSuccessHandler extends SimpleUrlLogoutSuccessHandler {
 
 	public void onLogoutSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
 		LogUtil.info(getClass(), "SimpleUrlLogoutSuccessHandler start...");
-		request.getSession().removeAttribute(SysConfig.SessionKey.LOGINUSER);
-		LogUtil.info(getClass(), "SimpleUrlLogoutSuccessHandler end");
+        request.getSession().removeAttribute(SysConst.SessionKey.LOGINUSER);
+        LogUtil.info(getClass(), "SimpleUrlLogoutSuccessHandler end");
 		super.onLogoutSuccess(request, response, authentication);
 	}
 }

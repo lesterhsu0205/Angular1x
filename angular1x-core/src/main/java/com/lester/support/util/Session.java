@@ -20,8 +20,8 @@ public class Session{
 	
 	public Session addParams(String key, Object value){
 		if(params == null){
-			params = new HashMap<String, Object>();
-		}
+            params = new HashMap<>();
+        }
 		params.put(key, value);
 		return this;
 	}

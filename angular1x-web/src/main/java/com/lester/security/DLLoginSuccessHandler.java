@@ -1,6 +1,6 @@
 package com.lester.security;
 
-import com.lester.config.SysConfig;
+import com.lester.config.SysConst;
 import com.lester.core.model.CfgAuthUser;
 import com.lester.core.service.IUserService;
 import com.lester.support.util.LogUtil;
@@ -26,8 +26,8 @@ public class DLLoginSuccessHandler extends SimpleUrlAuthenticationSuccessHandler
 			try {
 				CfgAuthUser queryUser = userservice.loadUserByUsername(username);
 				LogUtil.info(this.getClass(), "set queryUser to session...userName=" + queryUser.getName());
-				request.getSession().setAttribute(SysConfig.SessionKey.LOGINUSER, queryUser);
-			} catch (Exception e) {
+                request.getSession().setAttribute(SysConst.SessionKey.LOGINUSER, queryUser);
+            } catch (Exception e) {
 				LogUtil.error(this.getClass(), "err00", "onAuthenticationSuccess error...", e);
 			}
 		}

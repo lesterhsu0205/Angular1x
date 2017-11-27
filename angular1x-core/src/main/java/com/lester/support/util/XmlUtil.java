@@ -1,4 +1,4 @@
-package tw.com.platform.util;
+package com.lester.support.util;
 
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;

@@ -1,4 +1,4 @@
-package tw.com.platform.util;
+package com.lester.support.util;
 
 import java.net.Inet4Address;
 import java.net.InetAddress;

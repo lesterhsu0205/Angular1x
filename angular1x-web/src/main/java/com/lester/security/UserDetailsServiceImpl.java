@@ -1,6 +1,6 @@
 package com.lester.security;
 
-import com.lester.config.SysConfig;
+import com.lester.config.SysConst;
 import com.lester.core.model.CfgAuthUser;
 import com.lester.core.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,8 +27,8 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 			CfgAuthUser queryUser = userservice.loadUserByUsername(username);
 			if(queryUser != null) {
 	            Collection<GrantedAuthority> auths = new ArrayList<GrantedAuthority>();
-	            SimpleGrantedAuthority authority = new SimpleGrantedAuthority(SysConfig.Security.ROLE_USER); 
-	            auths.add(authority);
+                SimpleGrantedAuthority authority = new SimpleGrantedAuthority(SysConst.Security.ROLE_USER);
+                auths.add(authority);
 	            User user = new User(queryUser.getUserName(), queryUser.getPassword(), auths);
 	            return user;
 	        }

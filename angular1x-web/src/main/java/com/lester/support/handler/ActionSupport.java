@@ -1,6 +1,6 @@
 package com.lester.support.handler;
 
-import com.lester.config.SysConfig;
+import com.lester.config.SysConst;
 import com.lester.core.model.CfgAuthUser;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
@@ -14,7 +14,7 @@ public class ActionSupport {
         ServletRequestAttributes attr = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
         attr.getRequest().getRemoteUser();
         HttpSession session = attr.getRequest().getSession();
-        CfgAuthUser user = (CfgAuthUser) session.getAttribute(SysConfig.SessionKey.LOGINUSER);
+        CfgAuthUser user = (CfgAuthUser) session.getAttribute(SysConst.SessionKey.LOGINUSER);
         return user;
     }
 

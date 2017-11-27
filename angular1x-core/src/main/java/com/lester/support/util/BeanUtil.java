@@ -1,4 +1,4 @@
-package tw.com.platform.util;
+package com.lester.support.util;
 
 import org.apache.commons.lang3.StringUtils;
 
