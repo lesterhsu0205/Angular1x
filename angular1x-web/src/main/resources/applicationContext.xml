@@ -76,11 +76,9 @@
     <!--<bean id="aopAspectAfterMethod" class="com.lester.support.aop.AopAspectAfterMethod"/>-->
     <!--<bean id="aopAspectAroundMethod" class="com.lester.support.aop.AopAspectAroundMethod"/>-->
 
-    <!--<bean id="aopMainServiceProxy"-->
-    <!--class="org.springframework.aop.framework.ProxyFactoryBean">-->
+    <!--<bean id="aopMainServiceProxy" class="org.springframework.aop.framework.ProxyFactoryBean">-->
 
-    <!--<property name="target" ref="aopMainService">-->
-    <!--</property>-->
+    <!--<property name="target" ref="aopMainService"/>-->
 
     <!--<property name="interceptorNames">-->
     <!--<list>-->
@@ -90,9 +88,9 @@
     <!--</property>-->
     <!--</bean>-->
 
-    <!-- 启动@aspectj的自动代理支持 -->
+    <!-- 啟動 @Aspect 的自動代理 -->
     <aop:aspectj-autoproxy/>
 
-    <!-- 定义aspect类 -->
+    <!-- aspect 類 -->
     <bean name="myAspect" class="com.lester.support.aop.MyAspect"/>
 </beans>
