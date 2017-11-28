@@ -1,11 +1,13 @@
 package test;
 
-import com.lester.core.dao.ICommonDao;
 import com.lester.core.dao.IUserDao;
 import com.lester.core.model.CfgAuthUser;
+import com.lester.core.service.IAopManService;
+import com.lester.core.service.IWriteService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
@@ -23,11 +25,34 @@ public class UserTest {
 	private IUserDao userDao;
 	
 	@Autowired
-	private ICommonDao commonDao;
+	private IAopManService aopManService;
+
+	@Qualifier("usbWriterService")
+	@Autowired
+	private IWriteService write;
 	
 	@Value("${filePathProto}")
 	private String filePathProto;
-	
+
+	@Test
+	public void testAOP() throws Exception {
+//		System.out.println("*************************");
+		aopManService.printName();
+//		System.out.println("*************************");
+//		aopManService.printURL();
+//		System.out.println("*************************");
+//		try {
+//			aopManService.printThrowException();
+//		} catch (Exception e) {
+//
+//		}
+	}
+
+	@Test
+	public void testIOC() throws Exception {
+		write.save();
+	}
+
 	@Test
 	public void testLogin() throws Exception{
 		CfgAuthUser bean = userDao.loadUserByUsername("yyy", false);
