@@ -1,6 +1,6 @@
 apply plugin: "idea"
 apply plugin: "eclipse"
-apply from: "build-groovy.gradle"
+apply from: "connectDB.gradle"
 apply from: "utils.gradle"
 
 idea {
@@ -12,21 +12,17 @@ idea {
 }
 
 allprojects {
+
     //apply plugin: 'license'
     apply plugin: "java"
 
-    group = project_group
-    version = project_ver
+    group = "${versions.project_group}"
+    version = "${versions.project_ver}"
 
     sourceCompatibility = JavaVersion.VERSION_1_8
     targetCompatibility = JavaVersion.VERSION_1_8
 
-    [compileJava, compileTestJava, javadoc]*.options*.encoding = project_encoding
-
-    ext.versions = [
-            spring         : "4.2.5.RELEASE",
-            spring_security: "4.1.0.RELEASE",
-    ]
+    [compileJava, compileTestJava, javadoc]*.options*.encoding = "${versions.project_encoding}"
 
     repositories {
         mavenCentral()
@@ -41,7 +37,7 @@ subprojects { subproj ->
             // 生成 jar 包的時候按此規則生成 manifest 文件
             manifest = defaultManifest([
                     project      : subproj,
-                    projectVendor: project_vendor
+                    projectVendor: "${versions.project_vendor}"
             ])
         }
     }
@@ -52,7 +48,7 @@ subprojects { subproj ->
         doFirst {
             manifest = defaultManifest([
                     project      : subproj,
-                    projectVendor: project_vendor
+                    projectVendor: "${versions.project_vendor}"
             ])
         }
     }
@@ -63,14 +59,14 @@ subprojects { subproj ->
         doFirst {
             manifest = defaultManifest([
                     project      : subproj,
-                    projectVendor: project_vendor
+                    projectVendor: "${versions.project_vendor}"
             ])
         }
     }
 
     artifacts {
         archives jar
-        archives javadocJar
+//        archives javadocJar
         archives sourcesJar
     }
 

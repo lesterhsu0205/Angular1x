@@ -37,11 +37,6 @@ dependencies {
             "org.hibernate:hibernate-core:5.2.12.Final",
             "com.google.guava:guava:23.0",
             "org.apache.poi:poi-ooxml:3.17",
-
-
-
-
-
     )
 
     runtime(
