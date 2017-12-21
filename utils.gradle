@@ -1,31 +1,35 @@
+import java.nio.file.Paths
 import java.text.SimpleDateFormat
 
 ext {
 
-    versions = [
-            spring          : "4.2.5.RELEASE",
-            spring_security : "4.1.0.RELEASE",
-            project_vendor  : "lester.com",
-            project_ver     : "1.0",
-            project_group   : "com.lester",
-            project_encoding: "UTF-8",
-            project_web     : "3.1",
-    ]
+    // 設定包版版號
+    buildVer = { args ->
+        def proj = args.project
+        def numFilename = args.numFilename
+        def projResourceDir = Paths.get("${proj.projectDir}", "src/main/resources").toString()
 
-    /**
-     * 定義 manifest 文件輸出内容
-     *
-     * 調用方式：
-     * jar {
-     *     doFirst {
-     *          manifest = defaultManifest([project: project, projectVendor: project_vendor])
-     *      }
-     *  }
-     */
+        println ">> build_ver.propties path:" + projResourceDir
+
+        //noinspection GroovyAssignabilityCheck
+        def buildVerFile = new File(projResourceDir, numFilename)
+        def buildVer = buildVerFile.text.toInteger()
+
+        println '>> Old build ver: ' + buildVerFile.text
+        buildVer++
+        println '>> New build ver: ' + buildVer
+
+        buildVerFile.text = buildVer
+
+        return buildVer
+
+    }
+
+    // 定義 Manifest
     defaultManifest = {args ->
         def proj = args.project
         def projectVendor = args.projectVendor
-        // 如果未傳入 version 參數，則默認採用傳入的 proj 的屬性
+        // 如果未傳入 version，則預設 proj 屬性
         def projectVersion = args.version ? args.version :  proj.version
 
         return manifest {
@@ -37,7 +41,6 @@ ext {
             def git_proc = git_cmd.execute()
 
             attributes 'SCM-Revision': git_proc.text.trim()
-
             attributes 'Built-By': System.properties['user.name']
             attributes 'Created-By': System.properties['java.version'] + " (" + System.properties['java.vendor'] + " " + System.getProperty("java.vm.version") + ")"
             attributes 'Build-Host': InetAddress.localHost.hostName
@@ -53,32 +56,4 @@ ext {
             attributes 'provider': 'gradle'
         }
     }
-
-    /**
-     * 根據給定文件中的數字自動加一，一般用于生產版本號後面的編譯數字。
-     *
-     * 調用方式：
-     * def buildNumber = buildNumberIncrease([project: project, numFilename: 'build_number.data'])
-     * version += '.' + buildNumber
-     */
-    buildNumberIncrease = { args ->
-        def proj = args.project
-        def numFilename = args.numFilename
-
-        println ">> project path: ${proj.projectDir}"
-
-        //noinspection GroovyAssignabilityCheck
-        def _build_number_file = new File(proj.projectDir, numFilename)
-        def buildNumber = _build_number_file.text.toInteger()
-
-        println '>> Old build number: ' + _build_number_file.text
-        buildNumber++
-        println '>> New build number: ' + buildNumber
-
-        _build_number_file.text = buildNumber
-
-        return buildNumber
-
-    }
-
 }

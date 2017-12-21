@@ -1,5 +1,8 @@
-apply plugin: "war"
 archivesBaseName = "angular1x-web"
+
+// 聽說是用來生成 eclipse web 項目要用... idea 可無視
+apply plugin: "eclipse-wtp"
+apply plugin: "war"
 
 sourceSets {
     main {
@@ -35,18 +38,17 @@ dependencies {
 }
 
 // 設定 snapshot war 版號
-// 格式： project-web-1.0.123-SNAPSHOT.war
-task setSnapshotWarVersion {
-
+// 格式 project-web-1.0.123-SNAPSHOT.war
+task setSnapshotWarVer {
     doFirst {
-        println '== Snapshot begin....'
-        println '================================================='
-        def buildNumber = buildNumberIncrease([project: project, numFilename: 'build_number.data'])
-        version += '.' + buildNumber
-        version += '-SNAPSHOT'
+        println "== Snapshot begin...."
+        println "================================================="
+        def buildVer = buildVer([project: project, numFilename: "build_ver.propties"])
+        version += "." + buildVer
+        version += "-SNAPSHOT"
         println ">> new version: ${version}"
         println ">> war: ${archivesBaseName}-${version}.war"
-        println '================================================='
+        println "================================================="
 
         war {
             excludes = ['**/rebel.xml', '**/.keep']
@@ -60,29 +62,20 @@ task setSnapshotWarVersion {
     }
 }
 
-// 編譯 snapshot 版的 war 包
-task snapshot(dependsOn: ['setSnapshotWarVersion', 'war']) {
-    doLast {
-        println '== Snapshot WAR Generate Over'
-    }
-}
-
-//
 // 設定 release 包的版號
-// 格式: project-web-1.0.123.war
-
-task setReleaseWarVersion {
+// 格式 project-web-1.0.123.war
+task setReleaseWarVer {
     doFirst {
-        println '== Release Begin...'
-        println '================================================='
-        def buildNumber = buildNumberIncrease([project: project, numFilename: 'build_number.data'])
-        version += '.' + buildNumber
+        println "== Release Begin..."
+        println "================================================="
+        def buildVer = buildVer([project: project, numFilename: "build_ver.propties"])
+        version += "." + buildVer
         println ">> new version: ${version}"
         println ">> war: ${archivesBaseName}-${version}.war"
-        println '================================================='
+        println "================================================="
 
         war {
-            excludes = ['**/rebel.xml', '**/.keep']
+            excludes = ["**/rebel.xml", "**/.keep"]
 
             manifest = defaultManifest([
                     project: project,
@@ -102,7 +95,15 @@ task setReleaseWarVersion {
     }
 }
 
-task release(dependsOn: ['setReleaseWarVersion', 'war']) {
+// 編譯 snapshot war
+task snapshot(dependsOn: ['setSnapshotWarVer', 'war']) {
+    doLast {
+        println '== Snapshot WAR Generate Over'
+    }
+}
+
+// 編譯 release war
+task release(dependsOn: ['setReleaseWarVer', 'war']) {
     doLast {
         println '== Release WAR Generate Over'
     }
