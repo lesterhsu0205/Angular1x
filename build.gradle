@@ -1,0 +1,102 @@
+apply plugin: "idea"
+apply plugin: "eclipse"
+apply from: "connectDB.gradle"
+apply from: "utils.gradle"
+apply from: "prop.gradle"
+
+idea {
+    project {
+        jdkName = JavaVersion.VERSION_1_8
+        languageLevel = JavaVersion.VERSION_1_8
+        vcs = "Git"
+    }
+}
+
+allprojects {
+
+    //apply plugin: 'license'
+    apply plugin: "java"
+
+    group = "${versions.project_group}"
+    version = "${versions.project_ver}"
+
+    sourceCompatibility = JavaVersion.VERSION_1_8
+    targetCompatibility = JavaVersion.VERSION_1_8
+
+    [compileJava, compileTestJava, javadoc]*.options*.encoding = "${versions.project_encoding}"
+
+    repositories {
+        mavenCentral()
+    }
+}
+
+subprojects { subproj ->
+
+    jar {
+        excludes = ['**/rebel.xml', '**/.keep']
+        doFirst {
+            // 生成 jar 包的時候按此規則生成 manifest 文件
+            manifest = defaultManifest([
+                    project      : subproj,
+                    projectVendor: "${versions.project_vendor}"
+            ])
+        }
+    }
+
+    task javadocJar(type: Jar, dependsOn: javadoc) {
+        classifier = 'javadoc'
+        from 'build/docs/javadoc'
+        doFirst {
+            manifest = defaultManifest([
+                    project      : subproj,
+                    projectVendor: "${versions.project_vendor}"
+            ])
+        }
+    }
+
+    task sourcesJar(type: Jar) {
+        classifier = 'sources'
+        from sourceSets.main.allSource
+        doFirst {
+            manifest = defaultManifest([
+                    project      : subproj,
+                    projectVendor: "${versions.project_vendor}"
+            ])
+        }
+    }
+
+    artifacts {
+        archives jar
+//        archives javadocJar
+        archives sourcesJar
+    }
+
+    configurations {
+        // 所有需要忽略的包定義在這
+//		all*.exclude group: 'commons-httpclient'
+    }
+
+    dependencies {
+
+        // 共用依賴
+//		compile(
+//		)
+
+        // 共用測試依賴
+        testCompile(
+                "org.springframework:spring-test:${versions.spring}",
+                "org.hamcrest:hamcrest-library:1.3",
+        )
+
+        testCompile("junit:junit:4.12") {
+            exclude group: "org.hamcrest", module: "hamcrest-core"
+        }
+
+        // 各自 project 若有 local jar 另外載入
+        ext.jarTree = fileTree(dir: 'libs', include: '**/*.jar')
+        ext.rootProjectLibs = new File(rootProject.rootDir, 'libs').getAbsolutePath()
+        ext.jarTree += fileTree(dir: rootProjectLibs, include: '**/*.jar')
+        compile jarTree
+    }
+}
+

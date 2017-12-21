@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="sample">
+
+	<resultMap id="cfgAuthUserResult" type="com.lester.core.model.CfgAuthUser" >
+		<result column="ID" property="id" />
+		<result column="USER_NAME" property="userName" />
+		<result column="PASSWORD" property="password" />
+		<result column="NAME" property="name" />
+		<result column="ROLE_ID" property="roleId" />
+		<result column="DEP_ID" property="depId" />
+		<result column="PHONE" property="phone" />
+		<result column="EMAIL" property="email" />
+		<result column="STATUS" property="status" />
+		<result column="CREATE_DATE" property="createDate" />
+		<result column="CREATE_USER" property="createUser" />
+		<result column="UPDATE_DATE" property="updateDate" />
+		<result column="UPDATE_USER" property="updateUser" />
+	</resultMap>
+	
+	<!-- parameterType="map" 盡量用 map 因為 map 裡可以丟 各種 type 這樣組 sql 才可以 同時有 string integer timestamp -->
+	<select id="queryUsers" resultType="HashMap" parameterType="map">
+		SELECT u.*, 
+		d.NAME DEP_NAME ,
+		r.NAME ROLE_NAME
+		FROM cfg_auth_user u
+		LEFT JOIN cfg_auth_dep d ON u.DEP_ID = d.ID
+		LEFT JOIN cfg_auth_role r ON u.ROLE_ID = r.ID
+		ORDER BY u.ID
+		LIMIT #{page.pageIdx}, #{page.pageSize}
+	</select>
+	
+	<select id="queryUsersCount" resultType="String">
+		SELECT count(ID) FROM cfg_auth_user
+	</select>
+	
+	<select id="isHasUser" resultType="String">
+		SELECT count(ID) FROM cfg_auth_user WHERE USER_NAME = #{userName} AND password = #{password}
+	</select>
+	
+	<select id="queryDepOpts" resultType="HashMap">
+		SELECT d.ID value, d.NAME text FROM cfg_auth_dep d
+	</select>
+	
+	<select id="queryRoleOpts" resultType="HashMap">
+		SELECT r.ID value, r.NAME text FROM cfg_auth_role r
+	</select>
+	
+	<select id="loadUserByUsername" resultType="HashMap">
+		SELECT u.* FROM cfg_auth_user u WHERE USER_NAME = #{userName}
+		<if test="status != null">
+			AND STATUS = #{status}
+		</if>
+	</select>
+	
+	<insert id="insertUser" useGeneratedKeys="true" keyProperty="id" >
+		INSERT INTO cfg_auth_user
+					(USER_NAME, PASSWORD, NAME, ROLE_ID, DEP_ID,
+					PHONE, EMAIL, STATUS, CREATE_USER , UPDATE_USER)
+		VALUES (#{userName}, #{password}, #{name}, #{roleId}, #{depId}, #{phone}, #{email}, #{status}, #{createUser}, #{updateUser})
+	</insert>
+	
+	<update id="updateUser">
+		UPDATE cfg_auth_user 
+		SET USER_NAME = #{userName}, NAME = #{name}, ROLE_ID = #{roleId}, DEP_ID = #{depId},
+			PHONE = #{phone}, EMAIL = #{email}, STATUS = #{status}, UPDATE_USER = #{updateUser},
+			UPDATE_DATE = NOW()
+		WHERE ID = #{id}
+	</update>
+	
+	<update id="updatePassword">
+		UPDATE cfg_auth_user 
+		SET PASSWORD = #{password}, UPDATE_USER = #{updateUser}
+		WHERE ID = #{id}
+	</update>
+	
+	<delete id="deleteUser">
+		DELETE FROM cfg_auth_user WHERE ID = #{userId}
+	</delete>
+	
+</mapper>
